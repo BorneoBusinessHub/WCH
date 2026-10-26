@@ -8,18 +8,18 @@ const s = t(locale) as Record<string, string>;
 const svc = ['space', 'dev', 'host', 'ops'];
 ---
 <Base locale={locale} path="/services" title={s.services_title} description={s.services_desc}>
-  <Hero compact eyebrow={s.services_eyebrow} title={s.services_h1} lead={s.services_lead} />
+  <Hero compact photo="serverHall" credit={s.credit_server} eyebrow={s.services_eyebrow} title={s.services_h1} lead={s.services_lead} />
   <section class="section">
     <div class="wrap">
       <div class="grid grid-2">
-        {svc.map((k, i) => <div class="card"><span class="num">0{i + 1}</span><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
+        {svc.map((k, i) => <div class="card reveal"><span class="num">0{i + 1}</span><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
       </div>
       <p class="small" style="margin-top:20px">{s.services_note}</p>
     </div>
   </section>
   <section class="section tone-paper">
     <div class="wrap">
-      <div class="section-head"><h2>{s.services_how_title}</h2></div>
+      <div class="section-head reveal"><h2>{s.services_how_title}</h2></div>
       <ol class="steps">
         {[1, 2, 3].map((i) => <li>{s[`services_how_${i}`]}</li>)}
       </ol>

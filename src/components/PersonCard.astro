@@ -1,15 +1,20 @@
 ---
-interface Props { name: string; role: string; bio: string; photo?: string; honour?: boolean }
-const { name, role, bio, photo, honour = false } = Astro.props;
+import { Image } from 'astro:assets';
+import { portraits } from '../data/photos';
+interface Props { name: string; role: string; bio: string; photo?: string; honour?: boolean; wide?: boolean }
+const { name, role, bio, photo, honour = false, wide = false } = Astro.props;
+const img = photo ? portraits[photo] : undefined;
 const initials = name.replace(/^Datuk\s+/, '').split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join('');
 ---
-<div class:list={["card", "person", { honour }]}>
-  {photo
-    ? <img class="avatar" src={photo} alt={name} width="64" height="64" loading="lazy" />
-    : <div class="avatar" aria-hidden="true">{initials}</div>}
-  <div>
+<article class:list={['card', 'person', 'reveal', { honour, wide }]}>
+  <div class="portrait">
+    {img
+      ? <Image src={img} alt={name} widths={[360, 560]} sizes="(min-width: 760px) 380px, 100vw" format="webp" quality={75} loading="lazy" />
+      : <div class="avatar" aria-hidden="true">{initials}</div>}
+  </div>
+  <div class="body">
     <h3>{name}</h3>
     <p class="role">{role}</p>
     <p>{bio}</p>
   </div>
-</div>
+</article>

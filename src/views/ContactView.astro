@@ -11,8 +11,8 @@ const { company } = site;
   <Hero compact eyebrow={s.contact_eyebrow} title={s.contact_h1} lead={s.contact_lead} />
   <section class="section">
     <div class="wrap grid grid-2" style="align-items:start">
-      <ContactForm locale={locale} />
-      <div class="card">
+      <div class="bezel reveal"><div class="core"><ContactForm locale={locale} /></div></div>
+      <div class="card reveal">
         <h2 style="font-size:1.25rem">{s.contact_direct_title}</h2>
         <ul class="rule-list">
           <li><strong>{s.contact_email_label}</strong><a href={`mailto:${company.email}`}>{company.email}</a></li>

@@ -1,12 +1,20 @@
 ---
-interface Props { eyebrow: string; title: string; lead: string; compact?: boolean }
-const { eyebrow, title, lead, compact = false } = Astro.props;
+import { Image } from 'astro:assets';
+import { photos, type PhotoKey } from '../data/photos';
+interface Props { eyebrow: string; title: string; lead: string; compact?: boolean; photo?: PhotoKey; credit?: string }
+const { eyebrow, title, lead, compact = false, photo, credit } = Astro.props;
 ---
-<section class:list={['hero', 'dark', { compact }]}>
-  <div class="wrap">
+<section class:list={['hero', 'dark', { compact, 'has-media': photo }]}>
+  {photo && (
+    <div class="hero-media">
+      <Image src={photos[photo]} alt="" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" format="webp" quality={72} />
+    </div>
+  )}
+  <div class="wrap inner">
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
     <p class="lead">{lead}</p>
     <slot />
   </div>
+  {credit && <p class="photo-credit">{credit}</p>}
 </section>

@@ -35,19 +35,19 @@
       "name": "Jason Wong",
       "roleKey": "role_ceo",
       "bioKey": "bio_jason",
-      "photo": ""
+      "photo": "jason"
     },
     {
       "name": "Leo Tan",
       "roleKey": "role_cto",
       "bioKey": "bio_leo",
-      "photo": ""
+      "photo": "leo"
     },
     {
       "name": "Perry Wong",
       "roleKey": "role_coo",
       "bioKey": "bio_perry",
-      "photo": ""
+      "photo": "perry"
     }
   ],
   "advisers": [
@@ -55,13 +55,13 @@
       "name": "Datuk Justine Jinggut",
       "roleKey": "role_chairman",
       "bioKey": "bio_justine",
-      "photo": ""
+      "photo": "justine"
     },
     {
       "name": "Andy Yek, ABK",
       "roleKey": "role_consultant",
       "bioKey": "bio_andy",
-      "photo": ""
+      "photo": "andy"
     }
   ],
   "credentials": [],

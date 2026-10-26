@@ -9,7 +9,7 @@ const s = t(locale) as Record<string, string>;
 const { company } = site;
 ---
 <Base locale={locale} path="/about" title={s.about_title} description={s.about_desc}>
-  <Hero compact eyebrow={s.about_eyebrow} title={s.about_h1} lead={s.about_lead} />
+  <Hero compact photo="land" credit={s.credit_land} eyebrow={s.about_eyebrow} title={s.about_h1} lead={s.about_lead} />
 
   <section class="section">
     <div class="wrap grid grid-2">
@@ -29,16 +29,16 @@ const { company } = site;
 
   <section class="section tone-paper">
     <div class="wrap">
-      <div class="section-head"><h2>{s.about_mission_title}</h2></div>
+      <div class="section-head reveal"><h2>{s.about_mission_title}</h2></div>
       <div class="grid grid-3">
-        {[1, 2, 3].map((i) => <div class="card"><span class="num">0{i}</span><h3>{s[`about_mission_${i}_t`]}</h3><p>{s[`about_mission_${i}_b`]}</p></div>)}
+        {[1, 2, 3].map((i) => <div class="card reveal"><span class="num">0{i}</span><h3>{s[`about_mission_${i}_t`]}</h3><p>{s[`about_mission_${i}_b`]}</p></div>)}
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head"><h2>{s.about_team_title}</h2><p class="lead">{s.about_team_lead}</p></div>
+      <div class="section-head reveal"><h2>{s.about_team_title}</h2><p class="lead">{s.about_team_lead}</p></div>
       <div class="grid grid-3">
         {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
       </div>
@@ -47,7 +47,7 @@ const { company } = site;
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
+      <div class="section-head reveal"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
       <div class="grid grid-2">
         {site.advisers.map((p) => <PersonCard honour name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
       </div>

@@ -5,10 +5,12 @@ const s = t(locale) as Record<string, string>;
 ---
 <section class="facts" aria-label="Key facts">
   <div class="wrap">
-    <ul>
-      {site.facts.map((f) => (
-        <li><div class="v">{f.value}<span>{f.unit}</span></div><div class="l">{s[f.key]}</div></li>
-      ))}
-    </ul>
+    <div class="bezel"><div class="core">
+      <ul>
+        {site.facts.map((f) => (
+          <li><div class="v">{f.value}<span>{f.unit}</span></div><div class="l">{s[f.key]}</div></li>
+        ))}
+      </ul>
+    </div></div>
   </div>
 </section>

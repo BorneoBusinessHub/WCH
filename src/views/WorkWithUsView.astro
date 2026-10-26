@@ -6,10 +6,10 @@ const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 ---
 <Base locale={locale} path="/work-with-us" title={s.work_title} description={s.work_desc}>
-  <Hero compact eyebrow={s.work_eyebrow} title={s.work_h1} lead={s.work_lead} />
+  <Hero compact photo="land" credit={s.credit_land} eyebrow={s.work_eyebrow} title={s.work_h1} lead={s.work_lead} />
   <section class="section">
     <div class="wrap grid grid-2">
-      {[1, 2, 3, 4].map((i) => <div class="card"><span class="num">0{i}</span><h3>{s[`work_${i}_t`]}</h3><p>{s[`work_${i}_b`]}</p></div>)}
+      {[1, 2, 3, 4].map((i) => <div class="card reveal"><span class="num">0{i}</span><h3>{s[`work_${i}_t`]}</h3><p>{s[`work_${i}_b`]}</p></div>)}
     </div>
   </section>
   <section class="cta-band dark">

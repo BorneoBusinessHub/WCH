@@ -13,37 +13,37 @@ const power = ['avail', 'baleh', '2030', '2035'];
 const req = ['power', 'net', 'cool', 'people'];
 ---
 <Base locale={locale} path="/project" title={s.project_title} description={s.project_desc}>
-  <Hero compact eyebrow={s.project_eyebrow} title={s.project_h1} lead={s.project_lead} />
+  <Hero compact photo="bakun" credit={s.credit_bakun} eyebrow={s.project_eyebrow} title={s.project_h1} lead={s.project_lead} />
   <FactStrip locale={locale} />
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head"><h2>{s.project_status_title}</h2></div>
-      <StatusTracker locale={locale} />
+      <div class="section-head reveal"><h2>{s.project_status_title}</h2></div>
+      <div class="bezel reveal"><div class="core"><StatusTracker locale={locale} /></div></div>
     </div>
   </section>
 
   <section class="section tone-paper">
     <div class="wrap">
-      <div class="section-head"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p></div>
-      <PhaseBar locale={locale} />
+      <div class="section-head reveal"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p></div>
+      <div class="bezel reveal"><div class="core"><PhaseBar locale={locale} /></div></div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head"><h2>{s.project_power_title}</h2><p class="lead">{s.project_power_lead}</p></div>
+      <div class="section-head reveal"><h2>{s.project_power_title}</h2><p class="lead">{s.project_power_lead}</p></div>
       <div class="grid grid-4">
-        {power.map((k) => <div class="card stat"><div class="v">{s[`power_${k}_v`]}</div><div class="l">{s[`power_${k}_l`]}</div></div>)}
+        {power.map((k) => <div class="card stat reveal"><div class="v">{s[`power_${k}_v`]}</div><div class="l">{s[`power_${k}_l`]}</div></div>)}
       </div>
     </div>
   </section>
 
   <section class="section tone-paper">
     <div class="wrap">
-      <div class="section-head"><h2>{s.project_req_title}</h2><p class="lead">{s.project_req_lead}</p></div>
+      <div class="section-head reveal"><h2>{s.project_req_title}</h2><p class="lead">{s.project_req_lead}</p></div>
       <div class="grid grid-4">
-        {req.map((k) => <div class="card"><h3>{s[`req_${k}_t`]}</h3><p>{s[`req_${k}_b`]}</p></div>)}
+        {req.map((k) => <div class="card reveal"><h3>{s[`req_${k}_t`]}</h3><p>{s[`req_${k}_b`]}</p></div>)}
       </div>
     </div>
   </section>

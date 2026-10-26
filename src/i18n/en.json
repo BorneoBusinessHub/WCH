@@ -237,5 +237,10 @@
   "gov_s_3_t": "Cooling for the climate",
   "gov_s_3_b": "Cooling is designed for high-density AI equipment in a tropical climate. Efficiency targets are set during detailed design.",
   "gov_s_4_t": "Local benefit",
-  "gov_s_4_b": "Work for Sarawak contractors and suppliers, and computing capacity that local industries can use."
+  "gov_s_4_b": "Work for Sarawak contractors and suppliers, and computing capacity that local industries can use.",
+  "credit_bakun": "Bakun hydropower, Sarawak. Representative photo, not the WCH site.",
+  "credit_land": "Representative photo of Sarawak land.",
+  "credit_server": "Representative data hall photo.",
+  "home_land_t": "Land and industrial experience",
+  "home_land_b": "Sarawak already runs estates, mills and refineries. The same land, power and operating know-how can host computing facilities."
 }
