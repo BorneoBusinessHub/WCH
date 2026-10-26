@@ -5,15 +5,17 @@ interface Props { title: string; lead: string; compact?: boolean; photo?: PhotoK
 const { title, lead, photo, credit } = Astro.props;
 ---
 <section class:list={['hero', { 'has-media': photo }]}>
-  {photo && (
-    <div class="hero-media">
-      <Image src={photos[photo]} alt="" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" format="webp" quality={70} />
+  <div class="grid-hero">
+    <div class="copy">
+      <h1 class="reveal">{title}</h1>
+      <p class="lead reveal d1">{lead}</p>
+      <div class="reveal d2"><slot /></div>
     </div>
-  )}
-  <div class="wrap inner">
-    <h1 class="reveal">{title}</h1>
-    <p class="lead reveal d1">{lead}</p>
-    <div class="reveal d2"><slot /></div>
+    {photo && (
+      <figure class="media">
+        <Image src={photos[photo]} alt="" widths={[640, 1024, 1400]} sizes="(min-width: 960px) 42vw, 100vw" loading="eager" fetchpriority="high" format="webp" quality={72} />
+        {credit && <figcaption class="photo-credit">{credit}</figcaption>}
+      </figure>
+    )}
   </div>
-  {credit && <p class="photo-credit">{credit}</p>}
 </section>

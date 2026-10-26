@@ -12,7 +12,9 @@ const initials = name.replace(/^Datuk\s+/, '').split(/\s+/).filter((w) => /^[A-Z
       ? <Image src={img} alt={name} widths={[320, 520]} sizes="(min-width: 760px) 340px, 50vw" format="webp" quality={75} loading="lazy" />
       : <div class="avatar" aria-hidden="true">{initials}</div>}
   </div>
-  <h3>{name}</h3>
-  <p class="role">{role}</p>
-  {bio && <p class="bio">{bio}</p>}
+  <div class="cap">
+    <h3>{name}</h3>
+    <p class="role">{role}</p>
+    {bio && <p class="bio">{bio}</p>}
+  </div>
 </article>

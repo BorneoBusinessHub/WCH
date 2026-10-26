@@ -1,11 +1,6 @@
 ---
-import '@fontsource/ibm-plex-sans/400.css';
-import '@fontsource/ibm-plex-sans/500.css';
-import '@fontsource/ibm-plex-sans/600.css';
-import '@fontsource/ibm-plex-sans/700.css';
+import '@fontsource-variable/archivo/wdth.css';
 import '../styles/global.css';
-import { Image } from 'astro:assets';
-import { photos } from '../data/photos';
 import credits from '../assets/found/credits.json';
 import { t, localePath, otherLocale, hasCredentials, site, type Locale } from '../i18n/t';
 
@@ -51,7 +46,7 @@ const { company } = site;
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:locale" content={locale === 'en' ? 'en_MY' : 'ms_MY'} />
-  <meta name="theme-color" content="#f2f3ef" />
+  <meta name="theme-color" content="#f4f5f2" />
   <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -77,19 +72,26 @@ const { company } = site;
   </main>
 
   <footer class="site-footer">
-    <div class="bg"><Image src={photos.river} alt="" widths={[800, 1400, 2000]} sizes="100vw" format="webp" quality={65} loading="lazy" /></div>
     <div class="wrap top">
-      <ul>
-        <li><a href={L('/')}>{s.nav_home}</a></li>
-        {nav.map((n) => <li><a href={L(n.path)}>{n.label}</a></li>)}
-        <li><a href={L('/contact')}>{s.nav_contact}</a></li>
-      </ul>
-      <ul class="contact">
-        <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
-        {company.address && <li>{company.address}</li>}
-        <li>{s.contact_place}</li>
-        <li><a href={localePath(other, path)} hreflang={other}>{s.lang_other}</a></li>
-      </ul>
+      <div>
+        <span class="lbl">WCH Solutions</span>
+        <ul>
+          <li><a href={L('/')}>{s.nav_home}</a></li>
+          {nav.map((n) => <li><a href={L(n.path)}>{n.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <span class="lbl">{s.nav_contact}</span>
+        <ul>
+          <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
+          {company.address && <li>{company.address}</li>}
+          <li>{s.contact_place}</li>
+        </ul>
+      </div>
+      <div>
+        <span class="lbl">{s.lang_name}</span>
+        <ul><li><a href={localePath(other, path)} hreflang={other}>{s.lang_other}</a></li></ul>
+      </div>
     </div>
     <div class="wrap">
       <p class="word" aria-hidden="true">WCH</p>

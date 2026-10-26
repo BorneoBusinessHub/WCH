@@ -1,177 +1,173 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
 import Slip from '../components/Slip.astro';
 import PersonCard from '../components/PersonCard.astro';
-import ProofWall from '../components/ProofWall.astro';
+import LoadMeter from '../components/LoadMeter.astro';
+import SourceNote from '../components/SourceNote.astro';
 import { photos } from '../data/photos';
-import { t, localePath, site, hasProof, type Locale } from '../i18n/t';
+import { t, localePath, site, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 const L = (p: string) => localePath(locale, p);
-
-// Stage photographs, in the order their sections arrive.
-const stage = [
-  { key: 'bakun', alt: s.alt_dam },
-  { key: 'river', alt: s.alt_river },
-  { key: 'land', alt: s.alt_land },
-  { key: 'serverHall', alt: s.alt_hall },
-] as const;
-
+const people = [...site.team, ...site.advisers];
 const feats = [
   { k: 'space', photo: photos.switchyard, alt: s.alt_switchyard },
   { k: 'dev', photo: photos.cooling, alt: s.alt_cooling },
   { k: 'host', photo: photos.rack, alt: s.alt_rack },
   { k: 'ops', photo: photos.serverHall, alt: s.alt_hall },
 ];
-const people = [...site.team, ...site.advisers];
 ---
 <Base locale={locale} path="/" title={s.home_title} description={s.home_desc}>
-  <div class="stage">
-    <div class="stage-photo">
-      {stage.map((p, i) => (
-        <Image src={photos[p.key]} alt={i === 0 ? p.alt : ''} data-photo={p.key} class={i === 0 ? 'on' : ''}
-          widths={[640, 1000, 1400, 1800]} sizes="(min-width: 960px) 50vw, 100vw" format="webp" quality={70}
-          loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
-      ))}
-      <div class="stage-bar"><span>{s.bar_left}</span><span>{s.bar_right}</span></div>
-    </div>
-
-    <div class="stage-text">
-      <section class="hero-sheet" data-photo="bakun">
-        <h1 class="reveal">{s.home_h1}</h1>
-        <p class="lead reveal d1">{s.home_lead}</p>
-        <div class="btn-row reveal d2">
-          <a class="btn" href={L('/project')}>{s.cta_project}</a>
-          <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
-          {site.company.profilePdf && <a class="btn ghost" href={site.company.profilePdf} download>{s.profile_pdf}</a>}
+<section class="a-hero">
+  <div class="wrap">
+    <div class="plate a-plate">
+      <div class="a-strip"><span class="lbl">{site.company.name}</span><span class="lbl">{s.bar_left}</span></div>
+      <div class="a-main">
+        <div class="a-copy">
+          <h1>{s.home_h1}</h1>
+          <p class="lead">{s.home_lead}</p>
+          <div class="btn-row">
+            <a class="btn" href={L('/project')}>{s.cta_project}</a>
+            <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
+          </div>
         </div>
-      </section>
-
-      <section class="why" data-photo="river" aria-labelledby="why-h">
-        <h2 id="why-h" class="reveal">{s.why_title}</h2>
-        <p class="reveal d1">{s.home_why_1_b}</p>
-        <p class="reveal d2">{s.home_why_2_b}</p>
-        <p class="reveal d3">{s.home_land_b}</p>
-        <p class="reveal d4">{s.home_why_3_b} <a href={L('/project')}>{s.cta_project}</a></p>
-      </section>
-
-      <section data-photo="land" aria-labelledby="status-h">
-        <h2 id="status-h" class="reveal">{s.trk_title}</h2>
-        <p class="reveal d1">{s.trk_lead}</p>
-        <div class="reveal d2"><Slip locale={locale} /></div>
-      </section>
-
-      <section data-photo="serverHall" aria-labelledby="calc-h">
-        <h2 id="calc-h" class="reveal">{s.calc_title}</h2>
-        <p class="reveal d1">{s.calc_lead}</p>
-        <form class="calc reveal d2" data-calc onsubmit="return false">
-          <label for="kw">{s.calc_label}</label>
-          <div class="calc-row">
-            <input id="kw-range" type="range" min="100" max="12000" step="100" value="500" aria-label={s.calc_label} />
-            <input id="kw" type="number" min="1" max="100000" step="50" value="500" inputmode="numeric" />
-          </div>
-          <div class="calc-out" aria-live="polite">
-            <p class="calc-big"><span class="big" data-out="p1">25%</span><span>{s.calc_p1}</span></p>
-            <p>{s.calc_contract}: <strong data-out="contract">5%</strong></p>
-            <p>{s.calc_grid}: <strong data-out="grid">0.008%</strong></p>
-          </div>
-          <p class="calc-verdict" data-out="verdict">{s.calc_fit}</p>
-        </form>
-      </section>
+        <dl class="cells a-facts">
+          <div><dt class="lbl">{s.fact_contract}</dt><dd class="val">10<small>MW</small></dd></div>
+          <div><dt class="lbl">{s.fact_term}</dt><dd class="val">10<small>yr</small></dd></div>
+          <div class="hot"><dt class="lbl">{s.fact_phase1}</dt><dd class="val">2<small>MW</small></dd></div>
+          <div><dt class="lbl">{s.fact_grid}</dt><dd class="val">5.9<small>GW</small></dd></div>
+          <div><dt class="lbl">{s.trk_power_t}</dt><dd class="a-ok">{s.trk_done}</dd></div>
+          <div><dt class="lbl">{s.trk_land_t}</dt><dd class="a-ok">{s.trk_done}</dd></div>
+        </dl>
+      </div>
+      <div class="a-strip a-strip-b"><span class="small">{s.trk_note}</span></div>
     </div>
   </div>
+</section>
 
-  <section class="section" aria-labelledby="stats-h">
-    <div class="wrap">
-      <h2 id="stats-h" class="reveal">{s.stats_title}</h2>
-      <div class="mosaic reveal d1">
-        <figure class="m-photo"><Image src={photos.switchyard} alt={s.alt_switchyard} widths={[700, 1100, 1500]} sizes="(min-width: 900px) 66vw, 100vw" format="webp" quality={70} /></figure>
-        <div class="tile tile-navy"><div class="fig">10<span>MW</span></div><p>{s.tile_contract}</p></div>
-        <div class="tile tile-gold"><div class="fig">2<span>MW</span></div><p>{s.fact_phase1}</p></div>
-      </div>
+<section class="a-photo">
+  <div class="wrap">
+    <figure>
+      <Image src={photos.bakun} alt={s.alt_dam} widths={[800, 1400, 2000]} sizes="100vw" format="webp" quality={70} loading="eager" />
+      <figcaption class="photo-credit">{s.credit_bakun}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="a-why">
+  <div class="wrap a-split">
+    <h2 id="a-why">{s.why_title}</h2>
+    <ul class="facts-list stack">
+      <li><strong>{s.home_why_1_t}</strong><span>{s.home_why_1_b}</span></li>
+      <li><strong>{s.home_why_2_t}</strong><span>{s.home_why_2_b}</span></li>
+      <li><strong>{s.home_land_t}</strong><span>{s.home_land_b}</span></li>
+      <li><strong>{s.home_why_3_t}</strong><span>{s.home_why_3_b} <a href={L('/project')}>{s.cta_project}</a></span></li>
+    </ul>
+    <div class="a-src"><SourceNote locale={locale} /></div>
+  </div>
+</section>
+
+<section class="section tone" aria-labelledby="a-status">
+  <div class="wrap a-split">
+    <div><h2 id="a-status">{s.trk_title}</h2><p class="lead">{s.trk_lead}</p></div>
+    <div><Slip locale={locale} /></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="a-calc">
+  <div class="wrap">
+    <div class="section-head"><h2 id="a-calc">{s.calc_title}</h2><p class="lead">{s.calc_lead}</p></div>
+    <div><LoadMeter locale={locale} uid="a" /></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="a-feat">
+  <div class="wrap">
+    <div class="section-head"><h2 id="a-feat">{s.feat_title}</h2><p class="lead">{s.home_build_lead}</p></div>
+    <div class="a-feats">
+      {feats.map((f) => (
+        <article class="a-feat">
+          <figure><Image src={f.photo} alt={f.alt} widths={[400, 700]} sizes="(min-width: 900px) 25vw, 100vw" format="webp" quality={70} /></figure>
+          <h3>{s[`svc_${f.k}_t`]}</h3>
+          <ul>{[1, 2, 3, 4].map((n) => <li>{s[`feat_${f.k}_${n}`]}</li>)}</ul>
+        </article>
+      ))}
     </div>
-  </section>
+    <div class="btn-row"><a class="btn" href={L('/services')}>{s.cta_services}</a></div>
+  </div>
+</section>
 
-  <section class="section" aria-labelledby="team-h">
-    <div class="wrap">
-      <h2 id="team-h" class="reveal">{s.home_team_title}</h2>
-      <p class="lead reveal d1" style="margin-bottom:40px">{s.home_team_lead}</p>
-      <div class="team">
-        {people.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i} delay={i} />)}
-      </div>
-      <div class="btn-row"><a class="btn ghost" href={L('/about')}>{s.nav_about}</a></div>
-    </div>
-  </section>
+<section class="section" aria-labelledby="a-team">
+  <div class="wrap">
+    <div class="section-head"><h2 id="a-team">{s.home_team_title}</h2><p class="lead">{s.home_team_lead}</p></div>
+    <div class="team">{people.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i} delay={i} />)}</div>
+  </div>
+</section>
 
-  <section class="pinned" aria-labelledby="feat-h">
-    <div class="wrap inner">
-      <div class="head"><h2 id="feat-h">{s.feat_title}</h2><p class="lead">{s.home_build_lead}</p></div>
-      <div class="blocks">
-        {feats.map((f, i) => (
-          <div class:list={['feat', 'reveal', { flip: i % 2 === 1 }]}>
-            <h3>{s[`svc_${f.k}_t`]}</h3>
-            <div class="row">
-              <figure><Image src={f.photo} alt={f.alt} widths={[300, 500]} sizes="(min-width: 600px) 200px, 100vw" format="webp" quality={72} /></figure>
-              <ul>{[1, 2, 3, 4].map((n) => <li>{s[`feat_${f.k}_${n}`]}</li>)}</ul>
-            </div>
-          </div>
-        ))}
-        <div class="btn-row"><a class="btn" href={L('/services')}>{s.cta_services}</a></div>
-      </div>
-    </div>
-  </section>
+<section class="a-mail" aria-labelledby="a-mail">
+  <div class="wrap">
+    <h2 id="a-mail">{s.contact_sentence}</h2>
+    <a class="a-addr" href={`mailto:${site.company.email}`}>{site.company.email}</a>
+    <ul class="cells a-routes">
+      <li><a href={L('/project')}>{s.route_gov}</a></li>
+      <li><a href={L('/work-with-us')}>{s.route_con}</a></li>
+      <li><a href={L('/contact') + '?type=partner'}>{s.route_par}</a></li>
+    </ul>
+  </div>
+</section>
 
-  {hasProof && (
-    <section class="section tone" aria-labelledby="proof-h">
-      <div class="wrap">
-        <h2 id="proof-h" class="reveal">{s.proof_title}</h2>
-        <ProofWall locale={locale} />
-      </div>
-    </section>
-  )}
-
-  <section class="mail-stage" aria-labelledby="mail-h">
-    <div class="wrap">
-      <h2 id="mail-h" class="reveal">{s.contact_sentence}</h2>
-    </div>
-    <div class="wrap">
-      <a class="mail reveal d1" href={`mailto:${site.company.email}`}>{site.company.email}</a>
-      <div class="corners reveal d2">
-        <p style="margin:0">{s.contact_place}<br /><a href={L('/contact')}>{s.nav_contact}</a></p>
-        <ul>
-          <li><a href={L('/project')}>{s.route_gov}</a></li>
-          <li><a href={L('/work-with-us')}>{s.route_con}</a></li>
-          <li><a href={L('/contact') + '?type=partner'}>{s.route_par}</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-<script define:vars={{ t: { fit: s.calc_fit, over: s.calc_over, beyond: s.calc_beyond }, lang: locale === 'en' ? 'en-MY' : 'ms-MY' }}>
-  // The fixed photograph follows the section in view (signature move: slow crossfade).
-  const imgs = [...document.querySelectorAll('.stage-photo img')];
-  const show = (key) => imgs.forEach((im) => im.classList.toggle('on', im.dataset.photo === key));
-  const so = new IntersectionObserver((es) => {
-    for (const e of es) if (e.isIntersecting) show(e.target.dataset.photo);
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  document.querySelectorAll('.stage-text > section[data-photo]').forEach((s) => so.observe(s));
-
-  // The live thing: where a load sits in WCH capacity and the Sarawak grid.
-  const f = document.querySelector('[data-calc]');
-  if (f) {
-    const range = f.querySelector('#kw-range'), num = f.querySelector('#kw');
-    const out = (k) => f.querySelector(`[data-out="${k}"]`);
-    const pct = (v) => (v >= 10 ? Math.round(v) : v >= 0.1 ? Math.round(v * 10) / 10 : Math.round(v * 1000) / 1000).toLocaleString(lang) + '%';
-    const update = (kw) => {
-      kw = Math.max(1, Math.min(100000, Number(kw) || 0));
-      out('p1').textContent = pct(kw / 2000 * 100);
-      out('contract').textContent = pct(kw / 10000 * 100);
-      out('grid').textContent = pct(kw / 5900000 * 100);
-      out('verdict').textContent = kw <= 2000 ? t.fit : kw <= 10000 ? t.over : t.beyond;
-    };
-    range.addEventListener('input', () => { num.value = range.value; update(range.value); });
-    num.addEventListener('input', () => { range.value = num.value; update(num.value); });
-    update(num.value);
-  }
-</script>
 </Base>
+<style>
+  .a-hero { padding: 24px 0 0; }
+  .a-plate { padding: 30px 30px 0; }
+  .a-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding: 0 0 14px; border-bottom: var(--line) solid var(--rule); }
+  .a-strip-b { border-bottom: 0; border-top: var(--line) solid var(--rule); padding: 14px 0 22px; }
+  .a-strip-b .small { margin: 0; }
+  .a-main { display: grid; gap: 32px; padding: 40px 0; }
+  .a-copy h1 { max-width: 11ch; }
+  .a-facts { margin: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); border: var(--line) solid var(--rule); align-self: end; }
+  .a-facts > div { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; min-height: 132px; }
+  .a-facts dd { margin: 0; }
+  .js .a-facts > div { animation: stamp .7s var(--ease) both; }
+  .js .a-facts > div:nth-child(2) { animation-delay: .08s; } .js .a-facts > div:nth-child(3) { animation-delay: .16s; } .js .a-facts > div:nth-child(4) { animation-delay: .24s; } .js .a-facts > div:nth-child(5) { animation-delay: .32s; } .js .a-facts > div:nth-child(6) { animation-delay: .4s; }
+  @keyframes stamp { from { transform: scale(1.06); box-shadow: 0 10px 24px rgba(11, 31, 51, .25); } 60% { transform: scale(.985); box-shadow: none; } to { transform: none; } }
+  .a-src { grid-column: 2; }
+  @media (max-width: 899px) { .a-src { grid-column: auto; } }
+  .a-facts .val { font-size: clamp(52px, 5vw, 84px); }
+  .a-ok { font-weight: 750; font-size: var(--s-lead); display: flex; align-items: center; gap: 10px; }
+  .a-ok::before { content: ''; flex: none; width: 18px; height: 18px; background: var(--ink); }
+  @media (min-width: 1000px) {
+    .a-main { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 56px; padding: 64px 0 48px; min-height: calc(100svh - 72px - 24px - 140px); align-items: end; }
+  }
+  .a-photo { padding: 24px 0 0; }
+  .a-photo figure { position: relative; margin: 0; aspect-ratio: 21 / 9; border: var(--line) solid var(--rule); overflow: hidden; background: var(--alu); }
+  .a-photo img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 759px) { .a-photo figure { aspect-ratio: 4 / 3; } }
+
+  .a-split { display: grid; gap: 32px; }
+  @media (min-width: 900px) { .a-split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; } .a-split > h2, .a-split > div:first-child { position: sticky; top: 32px; } }
+
+  .a-feats { display: grid; gap: var(--line); background: var(--rule); border: var(--line) solid var(--rule); }
+  @media (min-width: 700px) { .a-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .a-feats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .a-feat { background: var(--sheet); padding: 0 0 24px; }
+  .a-feat figure { border-bottom: var(--line) solid var(--rule); }
+  .a-feat figure { margin: 0 0 20px; aspect-ratio: 4 / 3; overflow: hidden; }
+  .a-feat figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .a-feat:hover figure img { transform: scale(1.04); }
+  .a-feat h3, .a-feat ul { padding: 0 20px; }
+  .a-feat ul { list-style: none; margin: 0; display: grid; gap: 8px; color: var(--ink-soft); font-size: var(--s-small); }
+  .a-feat li { padding-left: 18px; position: relative; }
+  .a-feat li::before { content: ''; position: absolute; left: 0; top: .6em; width: 8px; height: 2px; background: var(--ink); }
+
+  .a-mail { background: var(--signal); border-top: var(--line) solid var(--rule); padding: 96px 0 72px; }
+  .a-mail h2 { font-size: var(--s-lead); font-weight: 600; max-width: 34ch; letter-spacing: 0; line-height: 1.4; }
+  .a-addr { display: block; font-size: clamp(40px, 9.6vw, 160px); font-weight: 800; font-variation-settings: 'wdth' 80; letter-spacing: -0.03em; line-height: 1; color: var(--ink); text-decoration: none; margin: 48px 0 64px; overflow-wrap: anywhere; }
+  .a-addr:hover { text-decoration: underline; text-decoration-thickness: 6px; text-underline-offset: 12px; }
+  .a-routes { list-style: none; margin: 0; padding: 0; border: var(--line) solid var(--rule); }
+  .a-routes > li { background: var(--signal); padding: 0; }
+  .a-routes a { display: block; padding: 20px; font-weight: 650; text-decoration: none; transition: background-color .25s var(--ease); }
+  .a-routes a:hover { background: var(--ink); color: var(--signal); }
+  @media (min-width: 900px) { .a-routes { grid-template-columns: repeat(3, 1fr); } }
+</style>

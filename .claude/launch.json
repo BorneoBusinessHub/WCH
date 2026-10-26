@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "wch-preview", "runtimeExecutable": "npm", "runtimeArgs": ["run", "preview"], "port": 4321 }
+    { "name": "wch-preview", "runtimeExecutable": "npm", "runtimeArgs": ["run", "preview"], "port": 4321 },
+    { "name": "wch-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "--port", "4322"], "port": 4322 }
   ]
 }

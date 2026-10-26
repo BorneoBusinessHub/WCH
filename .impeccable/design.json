@@ -1,0 +1,398 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T13:33:23.257Z",
+  "title": "Design System: WCH Solutions",
+  "extensions": {
+    "colorMeta": {
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Cool Sheet",
+        "tonalRamp": [
+          "#2b2d29",
+          "#45473f",
+          "#62655d",
+          "#81847b",
+          "#a1a49b",
+          "#c2c5bd",
+          "#e0e2dd",
+          "#f4f5f2"
+        ]
+      },
+      "alu": {
+        "role": "neutral",
+        "displayName": "Brushed Aluminium",
+        "tonalRamp": [
+          "#262924",
+          "#3e423b",
+          "#585d55",
+          "#747970",
+          "#91968c",
+          "#b0b4aa",
+          "#cfd3cc",
+          "#dfe2dc"
+        ]
+      },
+      "alu-2": {
+        "role": "neutral",
+        "displayName": "Aluminium Shadow",
+        "tonalRamp": [
+          "#262924",
+          "#3e423b",
+          "#585d55",
+          "#747970",
+          "#91968c",
+          "#b0b4aa",
+          "#cfd3cc",
+          "#e8eae5"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Plate Navy Ink",
+        "tonalRamp": [
+          "#0b1f33",
+          "#16304a",
+          "#264461",
+          "#3a5a79",
+          "#567592",
+          "#7a94ad",
+          "#a5b6c8",
+          "#d3dce5"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Weathered Ink",
+        "tonalRamp": [
+          "#1a2129",
+          "#2c3640",
+          "#44525f",
+          "#5d6b78",
+          "#7a8692",
+          "#9aa4ae",
+          "#bfc6cd",
+          "#e2e6e9"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Turbine Yellow",
+        "tonalRamp": [
+          "#3d2d00",
+          "#5e4600",
+          "#846200",
+          "#ab8000",
+          "#d29e00",
+          "#f2b705",
+          "#ffd560",
+          "#fff0c2"
+        ]
+      },
+      "signal-hi": {
+        "role": "primary",
+        "displayName": "Signal Hi",
+        "tonalRamp": [
+          "#3d2d00",
+          "#5e4600",
+          "#846200",
+          "#ab8000",
+          "#d29e00",
+          "#ffc81f",
+          "#ffdc75",
+          "#fff3cc"
+        ]
+      },
+      "on-ink": {
+        "role": "neutral",
+        "displayName": "Sheet on Ink",
+        "tonalRamp": [
+          "#2b2d29",
+          "#45473f",
+          "#62655d",
+          "#81847b",
+          "#a1a49b",
+          "#c2c5bd",
+          "#e0e2dd",
+          "#f4f5f2"
+        ]
+      },
+      "on-ink-soft": {
+        "role": "neutral",
+        "displayName": "Pale Steel",
+        "tonalRamp": [
+          "#1d2329",
+          "#333d47",
+          "#4e5a66",
+          "#6b7885",
+          "#8a97a4",
+          "#b8c3cd",
+          "#d2d9e0",
+          "#ebeff2"
+        ]
+      },
+      "ink-plate": {
+        "role": "neutral",
+        "displayName": "Deep Plate",
+        "tonalRamp": [
+          "#0a1724",
+          "#13293f",
+          "#223a54",
+          "#355069",
+          "#4f6a83",
+          "#7088a0",
+          "#9db0c2",
+          "#d0dae3"
+        ]
+      },
+      "ink-rule": {
+        "role": "neutral",
+        "displayName": "Ink Rule",
+        "tonalRamp": [
+          "#121d28",
+          "#2a3d50",
+          "#3d5266",
+          "#54697e",
+          "#6f8498",
+          "#91a3b4",
+          "#b8c5d1",
+          "#e0e6ec"
+        ]
+      },
+      "field-white": {
+        "role": "neutral",
+        "displayName": "Field White",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#5e5e5e",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c0c0c0",
+          "#e2e2e2",
+          "#ffffff"
+        ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Error Red",
+        "tonalRamp": [
+          "#3a0b08",
+          "#5c1410",
+          "#801c16",
+          "#b3261e",
+          "#d14a40",
+          "#e5776f",
+          "#f2a8a2",
+          "#fbdcd9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page h1; closing-band h2. Subpage heroes cap at clamp(40px, 5vw, 80px)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section h2."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3, card titles, and the lead size."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Condensed plate values; size scales per context (44-96px), unit at 0.42em."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, 66ch max."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Source notes, bios, card lists."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Expanded uppercase field labels, nav, buttons, form labels; 12px/0.05em/wdth 106 under 520px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "focus-halo",
+        "value": "outline: 3px solid #0b1f33; outline-offset: 3px; box-shadow: 0 0 0 6px #f2b705",
+        "purpose": "Global :focus-visible; the only persistent shadow."
+      },
+      {
+        "name": "stamp-transient",
+        "value": "0 10px 24px rgba(11, 31, 51, .25)",
+        "purpose": "First keyframe of the home fact-grid stamp entrance only; never at rest."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single easing curve."
+      },
+      {
+        "name": "state",
+        "value": ".25s",
+        "purpose": "Fill and colour changes on hover."
+      },
+      {
+        "name": "reveal",
+        "value": "translateY(14px) over .8s, 70ms stagger",
+        "purpose": "Entrance; content stays visible without script; off under reduced motion."
+      },
+      {
+        "name": "stamp",
+        "value": "scale 1.06 -> .985 -> 1 over .7s, 80ms stagger",
+        "purpose": "Home fact cells entrance."
+      },
+      {
+        "name": "photo-hover",
+        "value": "scale(1.03-1.04) over .8s",
+        "purpose": "Framed photo zoom on hover; portraits also leave greyscale over .6s."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "label-tight",
+        "value": "520px"
+      },
+      {
+        "name": "md",
+        "value": "760px"
+      },
+      {
+        "name": "split",
+        "value": "900px"
+      },
+      {
+        "name": "hero",
+        "value": "960px"
+      },
+      {
+        "name": "nav",
+        "value": "1100px"
+      },
+      {
+        "name": "wide",
+        "value": "1504px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Stamped yellow action with a sliding clip-path arrow.",
+      "html": "<a class=\"ds-btn\" href=\"#\">View the project</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:56px;padding:14px 22px;border:2px solid var(--ink,#0b1f33);font:650 15px/1 \"Archivo Variable\",Archivo,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;font-variation-settings:\"wdth\" 118;text-decoration:none;cursor:pointer;transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1);background:var(--signal,#f2b705);color:var(--ink,#0b1f33)}.ds-btn::after{content:\"\";width:14px;height:14px;flex:none;background:currentColor;clip-path:polygon(0 40%,60% 40%,60% 10%,100% 50%,60% 90%,60% 60%,0 60%);transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:var(--ink,#0b1f33);color:var(--signal,#f2b705)}.ds-btn:hover::after{transform:translateX(4px)}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:3px solid var(--ink,#0b1f33);outline-offset:3px;box-shadow:0 0 0 6px var(--signal,#f2b705)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action; transparent, inverts to ink.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Contact WCH</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:56px;padding:14px 22px;border:2px solid var(--ink,#0b1f33);font:650 15px/1 \"Archivo Variable\",Archivo,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;font-variation-settings:\"wdth\" 118;text-decoration:none;cursor:pointer;transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1);background:transparent;color:var(--ink,#0b1f33)}.ds-btn-ghost::after{content:\"\";width:14px;height:14px;flex:none;background:currentColor;clip-path:polygon(0 40%,60% 40%,60% 10%,100% 50%,60% 90%,60% 60%,0 60%);transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-btn-ghost:hover{background:var(--ink,#0b1f33);color:var(--on-ink,#f4f5f2)}.ds-btn-ghost:hover::after{transform:translateX(4px)}.ds-btn-ghost:focus-visible{outline:3px solid var(--ink,#0b1f33);outline-offset:3px;box-shadow:0 0 0 6px var(--signal,#f2b705)}"
+    },
+    {
+      "name": "Fact Plate",
+      "kind": "custom",
+      "refersTo": "plate-cell",
+      "description": "Fastened aluminium plate of ruled label/figure cells with one hot yellow cell.",
+      "html": "<div class=\"ds-plate\"><dl class=\"ds-cells\"><div><dt class=\"ds-lbl\">Power contract</dt><dd class=\"ds-val\">10<small>MW</small></dd></div><div><dt class=\"ds-lbl\">Contract term</dt><dd class=\"ds-val\">10<small>yr</small></dd></div><div class=\"hot\"><dt class=\"ds-lbl\">Phase 1 allocation</dt><dd class=\"ds-val\">2<small>MW</small></dd></div><div><dt class=\"ds-lbl\">Sarawak generation</dt><dd class=\"ds-val\">5.9<small>GW</small></dd></div></dl></div>",
+      "css": ".ds-plate{position:relative;padding:30px;background-color:var(--alu,#dfe2dc);border:2px solid var(--ink,#0b1f33);--f:radial-gradient(circle,#0b1f33 0 3px,#cfd3cc 3.5px 6px,transparent 6.5px);background-image:var(--f),var(--f),var(--f),var(--f);background-size:14px 14px;background-repeat:no-repeat;background-position:10px 10px,calc(100% - 10px) 10px,10px calc(100% - 10px),calc(100% - 10px) calc(100% - 10px);font-family:\"Archivo Variable\",Archivo,system-ui,sans-serif;color:#0b1f33}.ds-cells{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;background:#0b1f33;border:2px solid #0b1f33;margin:0}.ds-cells>div{background:#dfe2dc;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:22px;min-height:132px}.ds-cells>.hot{background:#f2b705}.ds-cells>.hot .ds-lbl{color:#0b1f33}.ds-lbl{font-size:13px;font-weight:620;letter-spacing:.09em;text-transform:uppercase;font-variation-settings:\"wdth\" 125;line-height:1.3;color:#44525f}.ds-val{margin:0;white-space:nowrap;font-size:64px;font-weight:800;font-variation-settings:\"wdth\" 72;letter-spacing:-.02em;line-height:.9;font-variant-numeric:tabular-nums}.ds-val small{font-size:.42em;font-weight:650;letter-spacing:0;margin-left:.15em;font-variation-settings:\"wdth\" 100}"
+    },
+    {
+      "name": "Ruled Card Row",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Cards always sit in a ruled table, never as floating tiles.",
+      "html": "<div class=\"ds-cardrow\"><article class=\"ds-card\"><h3>Powered space</h3><p>Premises sized for AI equipment load.</p></article><article class=\"ds-card\"><h3>Equipment hosting</h3><p>Colocation space for customer servers.</p></article></div>",
+      "css": ".ds-cardrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;background:#0b1f33;border:2px solid #0b1f33;font-family:\"Archivo Variable\",Archivo,system-ui,sans-serif}.ds-card{background:var(--sheet,#f4f5f2);padding:28px 26px 32px;transition:background-color .25s cubic-bezier(.16,1,.3,1)}.ds-card:hover{background:#fff}.ds-card h3{margin:0 0 14px;font-size:21px;font-weight:650;letter-spacing:-.01em;line-height:1.2;color:#0b1f33}.ds-card p{margin:0;color:#44525f}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square white field stamped with a 2px ink rule.",
+      "html": "<label class=\"ds-field\"><span>Email</span><input type=\"email\" placeholder=\"name@agency.gov.my\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;font-family:\"Archivo Variable\",Archivo,system-ui,sans-serif;color:#0b1f33}.ds-field span{font-size:13px;font-weight:620;letter-spacing:.09em;text-transform:uppercase;font-variation-settings:\"wdth\" 125}.ds-field input{font:inherit;font-size:18px;padding:14px 16px;border:2px solid #0b1f33;border-radius:0;background:#fff;color:#0b1f33}.ds-field input:focus-visible{outline:3px solid var(--ink,#0b1f33);outline-offset:3px;box-shadow:0 0 0 6px var(--signal,#f2b705)}.ds-field input:user-invalid{border-color:#b3261e}"
+    },
+    {
+      "name": "Header Nav",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Full-height label links; the current page is ink, the CTA is a yellow cell.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Project</a><a href=\"#\" aria-current=\"page\">About</a><a href=\"#\">Services</a><a class=\"cta\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;min-height:72px;background:#f4f5f2;border-bottom:2px solid #0b1f33;font-family:\"Archivo Variable\",Archivo,system-ui,sans-serif}.ds-nav a{display:flex;align-items:center;padding:0 14px;color:#0b1f33;text-decoration:none;font-size:13px;font-weight:620;letter-spacing:.08em;text-transform:uppercase;font-variation-settings:\"wdth\" 118;transition:background-color .25s cubic-bezier(.16,1,.3,1)}.ds-nav a:hover{background:#dfe2dc}.ds-nav a[aria-current=page]{background:#0b1f33;color:#f4f5f2}.ds-nav a.cta{margin-left:auto;background:#f2b705;padding:0 22px;border-left:2px solid #0b1f33}.ds-nav a.cta:hover{background:#0b1f33;color:#f2b705}.ds-nav a:focus-visible{outline:3px solid #0b1f33;outline-offset:-3px}"
+    },
+    {
+      "name": "Status Slip",
+      "kind": "custom",
+      "refersTo": "plate-cell-hot",
+      "description": "Ruled ledger of secured vs next with square marks and a yellow result row.",
+      "html": "<div class=\"ds-slip\"><h3>Secured</h3><ul><li class=\"done\"><b>Power</b><span>10 MW contract, 10-year term</span><i></i></li><li><b>Detailed design</b><span>Power, cooling and connectivity design</span><i></i></li></ul><div class=\"res\"><span>Phase 1: 2 MW online</span><span>Then up to 10 MW</span></div></div>",
+      "css": ".ds-slip{border:2px solid #0b1f33;background:#f4f5f2;font-family:\"Archivo Variable\",Archivo,system-ui,sans-serif;color:#0b1f33}.ds-slip h3{margin:0;padding:10px 16px;font-size:13px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;font-variation-settings:\"wdth\" 125;background:#dfe2dc;border-bottom:1px solid #0b1f33}.ds-slip ul{list-style:none;margin:0;padding:0}.ds-slip li{display:grid;grid-template-columns:minmax(96px,1fr) minmax(0,2fr) auto;gap:12px;align-items:baseline;padding:14px 16px;border-bottom:1px solid #0b1f33}.ds-slip span{font-size:15px;color:#44525f}.ds-slip i{width:22px;height:22px;border:2px solid #0b1f33;align-self:center}.ds-slip li.done i{background:#0b1f33}.ds-slip .res{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;background:#f2b705;padding:16px;font-weight:700}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Rating Plate",
+    "overview": "Every page reads like the equipment plate riveted to a transformer: a cool white sheet, brushed-aluminium fields, navy ink stamped into ruled cells, and one turbine-yellow field marking the thing that matters (Phase 1, the primary action). Claims are fields with a label and a value, never adjectives floating on a dark gradient. The system refuses the data-centre category default of dark navy pages with glowing server imagery.\n\nDensity is engineered rather than airy: content sits in ruled grids whose 2px navy gutters are the borders. Type is one variable family, Archivo, stretched across its width axis: expanded caps stamp the labels, normal width carries reading text, condensed heavy weights set the figures. Corners are square everywhere. Photography is documentary, framed in ruled boxes, and portraits sit greyscale until hovered.",
+    "keyCharacteristics": [
+      "Ruled cells: grids use a navy background and a 2px gap so the gutters become rules.",
+      "One signal yellow, applied as whole fields, never as small accents.",
+      "One family, three widths: expanded labels, normal text, condensed figures.",
+      "Square corners, 2px structural rules, 1px inner rules.",
+      "Flat surfaces; depth comes from tone (sheet / aluminium / ink), not shadow."
+    ],
+    "rules": [
+      {
+        "name": "The Whole-Field Rule",
+        "body": "Signal yellow fills an entire cell, button, band, or row. It is never a thin border, an icon tint, or a scattered highlight. Focus halos and link-hover underlines are the only small-scale uses, and they are state feedback, not decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink-Only Text Rule",
+        "body": "Text is ink or ink-soft on light grounds, on-ink or on-ink-soft on ink. Text on yellow is always ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Widths Rule",
+        "body": "Labels are expanded, prose is normal, figures are condensed. A label is never condensed and a figure is never expanded.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label-Is-a-Field Rule",
+        "body": "Uppercase expanded labels name a value directly beside or below them. They never float above a heading as decoration.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stamped-Not-Floating Rule",
+        "body": "Surfaces are pressed into the sheet. Use a fill change or a rule to separate, never a drop shadow. The only shadows are the focus halo (3px ink outline plus a 6px yellow ring) and a transient shadow in the home fact grid's one-time stamp entrance.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build every multi-item row as a ruled grid: ink background, 2px gap, 2px border, cells filled sheet or aluminium.",
+      "Do pair every figure with a label naming it; set figures condensed (width 72, weight 800) and units at 0.42em.",
+      "Do give yellow to one field per group: the Phase 1 cell, the primary action, the result row.",
+      "Do keep corners square and borders at 2px (structure) or 1px (inner rows).",
+      "Do frame photography in a 2px ruled box on an aluminium placeholder, with a credit tab in the bottom-left corner for representative images.",
+      "Do use the single easing curve, cubic-bezier(0.16, 1, 0.3, 1), and keep content visible when scripts are off."
+    ],
+    "donts": [
+      "Don't add border-radius, drop shadows, or gradients to surfaces.",
+      "Don't use yellow as a thin border, icon tint, text colour on light grounds, or scattered highlight.",
+      "Don't introduce a second typeface or a system display face; widths of Archivo do the hierarchy.",
+      "Don't set small uppercase labels above headings as eyebrows; labels name values.",
+      "Don't default to a dark navy page with glowing server imagery; ink is reserved for the footer, dark bands, and state fills.",
+      "Don't use glyph or emoji icons; marks are CSS shapes (squares, dashes, clip-path arrows)."
+    ]
+  }
+}

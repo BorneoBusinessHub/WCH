@@ -3,12 +3,21 @@ import { t, site, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 ---
-<section class="section tone" aria-label="Key facts">
+<section class="section" aria-label="Key facts">
   <div class="wrap">
-    <ul class="grid grid-4" style="list-style:none;padding:0;margin:0">
-      {site.facts.map((f, i) => (
-        <li class={`reveal d${i}`}><div style="font-size:var(--s-head);font-weight:600;letter-spacing:-0.03em;line-height:1">{f.value} {f.unit}</div><p class="small" style="margin-top:10px">{s[f.key]}</p></li>
-      ))}
-    </ul>
+    <div class="plate facts-plate reveal">
+      <ul class="cells">
+        {site.facts.map((f) => (
+          <li class:list={{ hot: f.key === 'fact_phase1' }}><span class="lbl">{s[f.key]}</span><span class="val">{f.value}<small>{f.unit}</small></span></li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
+<style>
+  .facts-plate { padding: 30px; }
+  .facts-plate .cells { list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); border: var(--line) solid var(--rule); }
+  .facts-plate li { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 170px; }
+  .facts-plate .val { font-size: clamp(56px, 6vw, 96px); }
+  @media (min-width: 900px) { .facts-plate .cells { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+</style>
