@@ -27,17 +27,12 @@ const req = ['power', 'net', 'cool', 'people'];
   <section class="section tone-paper">
     <div class="wrap">
       <div class="section-head"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p></div>
-      <figure class="phase" style="margin:0">
-        <svg viewBox="0 0 1000 150" role="img" aria-labelledby="phase-t">
-          <title id="phase-t">{s.phase_svg_title}</title>
-          <text x="0" y="22" font-size="18" fill="#4a5a6a">{s.phase_total_label}</text>
-          <rect x="1" y="40" width="998" height="56" rx="4" fill="#ffffff" stroke="#9aa8b6" stroke-dasharray="6 5" />
-          <rect x="1" y="40" width="200" height="56" rx="4" fill="#0fa3a3" />
-          <text x="16" y="75" font-size="18" font-weight="600" fill="#0b1f33">2 MW</text>
-          <text x="600" y="75" font-size="18" fill="#4a5a6a" text-anchor="middle">8 MW</text>
-          <text x="0" y="132" font-size="17" fill="#0a7c7c" font-weight="600">{s.phase_1_label}</text>
-          <text x="600" y="132" font-size="17" fill="#4a5a6a" text-anchor="middle">{s.phase_2_label}</text>
-        </svg>
+      <figure class="phase" aria-label={s.phase_svg_title}>
+        <figcaption>{s.phase_total_label}</figcaption>
+        <div class="phase-bar">
+          <div class="p1"><strong>2 MW</strong><span>{s.phase_1_label}</span></div>
+          <div class="p2"><strong>8 MW</strong><span>{s.phase_2_label}</span></div>
+        </div>
       </figure>
     </div>
   </section>

@@ -172,7 +172,14 @@ p { margin: 0 0 1em; }
 .steps li::before { content: counter(s, decimal-leading-zero); display: block; font-family: var(--mono); color: var(--teal-ink); font-size: 0.8rem; margin-bottom: 4px; }
 
 /* Phase diagram */
-.phase svg text { font-family: var(--sans); }
+.phase { margin: 0; }
+.phase figcaption { color: var(--slate); font-size: 0.92rem; margin-bottom: 8px; }
+.phase-bar { display: flex; min-height: 72px; border: 1px dashed #9aa8b6; border-radius: var(--radius); background: var(--white); }
+.phase-bar > div { display: flex; flex-direction: column; justify-content: center; padding: 10px 14px; gap: 2px; }
+.phase-bar .p1 { flex: 2; min-width: 120px; background: var(--teal); color: var(--navy); border-radius: var(--radius) 0 0 var(--radius); }
+.phase-bar .p2 { flex: 8; color: var(--slate); }
+.phase-bar strong { font-family: var(--mono); font-size: 1.1rem; }
+.phase-bar span { font-size: 0.85rem; }
 
 /* Sources */
 .sources { font-size: 0.85rem; color: var(--slate); }
