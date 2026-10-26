@@ -2,21 +2,28 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import FactStrip from '../components/FactStrip.astro';
+import StatusTracker from '../components/StatusTracker.astro';
+import PhaseBar from '../components/PhaseBar.astro';
 import PersonCard from '../components/PersonCard.astro';
+import ProofWall from '../components/ProofWall.astro';
 import SourceNote from '../components/SourceNote.astro';
-import CtaBand from '../components/CtaBand.astro';
-import { t, localePath, site, type Locale } from '../i18n/t';
+import { t, localePath, site, hasProof, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 const L = (p: string) => localePath(locale, p);
-const why = [1, 2, 3];
 const svc = ['space', 'dev', 'host', 'ops'];
+const audiences = [
+  { k: 'gov', href: L('/project') },
+  { k: 'con', href: L('/work-with-us') },
+  { k: 'par', href: L('/contact') + '?type=partner' },
+];
 ---
 <Base locale={locale} path="/" title={s.home_title} description={s.home_desc}>
   <Hero eyebrow={s.home_eyebrow} title={s.home_h1} lead={s.home_lead}>
     <div class="btn-row">
       <a class="btn" href={L('/project')}>{s.cta_project}</a>
       <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
+      {site.company.profilePdf && <a class="btn ghost" href={site.company.profilePdf} download>{s.profile_pdf}</a>}
     </div>
   </Hero>
   <FactStrip locale={locale} />
@@ -24,28 +31,25 @@ const svc = ['space', 'dev', 'host', 'ops'];
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">{s.home_why_eyebrow}</p>
-        <h2>{s.home_why_title}</h2>
+        <p class="eyebrow">{s.trk_eyebrow}</p>
+        <h2>{s.trk_title}</h2>
+        <p class="lead">{s.trk_lead}</p>
       </div>
-      <div class="grid grid-3">
-        {why.map((i) => (
-          <div class="card"><span class="num">0{i}</span><h3>{s[`home_why_${i}_t`]}</h3><p>{s[`home_why_${i}_b`]}</p></div>
-        ))}
-      </div>
+      <StatusTracker locale={locale} />
     </div>
   </section>
 
   <section class="section tone-paper">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">{s.home_build_eyebrow}</p>
-        <h2>{s.home_build_title}</h2>
-        <p class="lead">{s.home_build_lead}</p>
+        <p class="eyebrow">{s.home_why_eyebrow}</p>
+        <h2>{s.home_why_title}</h2>
       </div>
-      <div class="grid grid-4">
-        {svc.map((k) => <div class="card"><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
+      <div class="grid grid-3">
+        {[1, 2, 3].map((i) => (
+          <div class="card"><span class="num">0{i}</span><h3>{s[`home_why_${i}_t`]}</h3><p>{s[`home_why_${i}_b`]}</p></div>
+        ))}
       </div>
-      <div class="btn-row"><a class="btn ghost" href={L('/services')}>{s.cta_services}</a></div>
     </div>
   </section>
 
@@ -59,10 +63,57 @@ const svc = ['space', 'dev', 'host', 'ops'];
       <div class="grid grid-3">
         {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
       </div>
-      <div class="btn-row"><a class="btn ghost" href={L('/about')}>{s.nav_about}</a></div>
+      <h3 style="margin:40px 0 16px">{s.home_adv_title}</h3>
+      <div class="grid grid-2">
+        {site.advisers.map((p) => <PersonCard honour name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{s.home_phase_eyebrow}</p>
+        <h2>{s.project_phase_title}</h2>
+        <p class="lead">{s.project_phase_body}</p>
+      </div>
+      <PhaseBar locale={locale} />
+      <h3 style="margin:48px 0 16px">{s.home_build_title}</h3>
+      <div class="grid grid-4">
+        {svc.map((k) => <div class="card"><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  {hasProof && (
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">{s.proof_eyebrow}</p>
+          <h2>{s.proof_title}</h2>
+        </div>
+        <ProofWall locale={locale} />
+      </div>
+    </section>
+  )}
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{s.aud_eyebrow}</p>
+        <h2 style="color:var(--white)">{s.aud_title}</h2>
+      </div>
+      <div class="grid grid-3 audience">
+        {audiences.map((a) => (
+          <a class="card" href={a.href}>
+            <h3>{s[`aud_${a.k}_t`]}</h3>
+            <p style="color:var(--slate)">{s[`aud_${a.k}_b`]}</p>
+            <span class="go">{s[`aud_${a.k}_go`]} →</span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section tone-paper"><div class="wrap"><SourceNote locale={locale} /></div></section>
-  <CtaBand locale={locale} />
 </Base>

@@ -1,0 +1,12 @@
+---
+import { t, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+---
+<figure class="phase" aria-label={s.phase_svg_title}>
+  <figcaption>{s.phase_total_label}</figcaption>
+  <div class="phase-bar">
+    <div class="p1"><strong>2 MW</strong><span>{s.phase_1_label}</span></div>
+    <div class="p2"><strong>8 MW</strong><span>{s.phase_2_label}</span></div>
+  </div>
+</figure>

@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SourceNote from '../components/SourceNote.astro';
+import { t, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+---
+<Base locale={locale} path="/governance" title={s.gov_title} description={s.gov_desc}>
+  <Hero compact eyebrow={s.gov_eyebrow} title={s.gov_h1} lead={s.gov_lead} />
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.gov_g_title}</h2></div>
+      <ul class="rule-list">
+        {[1, 2, 3, 4].map((i) => <li><strong>{s[`gov_g_${i}_t`]}</strong><span>{s[`gov_g_${i}_b`]}</span></li>)}
+      </ul>
+    </div>
+  </section>
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.gov_s_title}</h2><p class="lead">{s.gov_s_lead}</p></div>
+      <div class="grid grid-2">
+        {[1, 2, 3, 4].map((i) => <div class="card"><span class="num">0{i}</span><h3>{s[`gov_s_${i}_t`]}</h3><p>{s[`gov_s_${i}_b`]}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <section class="section"><div class="wrap"><SourceNote locale={locale} /></div></section>
+  <CtaBand locale={locale} />
+</Base>

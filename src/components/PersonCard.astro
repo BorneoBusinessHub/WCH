@@ -1,9 +1,9 @@
 ---
-interface Props { name: string; role: string; bio: string; photo?: string }
-const { name, role, bio, photo } = Astro.props;
+interface Props { name: string; role: string; bio: string; photo?: string; honour?: boolean }
+const { name, role, bio, photo, honour = false } = Astro.props;
 const initials = name.replace(/^Datuk\s+/, '').split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join('');
 ---
-<div class="card person">
+<div class:list={["card", "person", { honour }]}>
   {photo
     ? <img class="avatar" src={photo} alt={name} width="64" height="64" loading="lazy" />
     : <div class="avatar" aria-hidden="true">{initials}</div>}

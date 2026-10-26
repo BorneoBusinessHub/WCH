@@ -19,3 +19,4 @@ export function localePath(locale: Locale, path: string): string {
 
 export const hasCredentials = site.credentials.length > 0 || site.partners.length > 0;
 export { site };
+export const hasProof = hasCredentials || site.milestones.length > 0;

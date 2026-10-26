@@ -49,7 +49,7 @@ const { company } = site;
     <div class="wrap">
       <div class="section-head"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
       <div class="grid grid-2">
-        {site.advisers.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
+        {site.advisers.map((p) => <PersonCard honour name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
       </div>
     </div>
   </section>

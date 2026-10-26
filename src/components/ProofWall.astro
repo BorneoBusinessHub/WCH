@@ -1,0 +1,36 @@
+---
+// Credentials, partners and milestones from site.json. Each block renders only when it has data.
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+const creds = site.credentials as { title: string; issuer: string; ref?: string; date?: string }[];
+const partners = site.partners as { name: string; logo?: string }[];
+const milestones = site.milestones as { date: string; en: string; ms: string }[];
+---
+{creds.length > 0 && (
+  <div class="grid grid-3">
+    {creds.map((c) => (
+      <div class="card honour">
+        <span class="badge">✓ {s.proof_verified}</span>
+        <h3>{c.title}</h3>
+        <p class="small">{[c.issuer, c.ref, c.date].filter(Boolean).join(' · ')}</p>
+      </div>
+    ))}
+  </div>
+)}
+{partners.length > 0 && (
+  <>
+    <h3 style="margin-top:40px">{s.cred_partners_title}</h3>
+    <div class="grid grid-4">
+      {partners.map((p) => <div class="card">{p.logo ? <img src={p.logo} alt={p.name} loading="lazy" /> : <strong>{p.name}</strong>}</div>)}
+    </div>
+  </>
+)}
+{milestones.length > 0 && (
+  <>
+    <h3 style="margin-top:40px">{s.milestones_title}</h3>
+    <ol class="timeline">
+      {milestones.map((m) => <li><time>{m.date}</time><div>{m[locale]}</div></li>)}
+    </ol>
+  </>
+)}

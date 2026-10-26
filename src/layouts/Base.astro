@@ -1,5 +1,7 @@
 ---
-import '@fontsource-variable/inter';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
 import { t, localePath, otherLocale, hasCredentials, site, type Locale } from '../i18n/t';
@@ -19,6 +21,7 @@ const nav = [
   { path: '/about', label: s.nav_about },
   { path: '/project', label: s.nav_project },
   { path: '/services', label: s.nav_services },
+  { path: '/governance', label: s.nav_governance },
   ...(hasCredentials ? [{ path: '/credentials', label: s.nav_credentials }] : []),
   { path: '/work-with-us', label: s.nav_work },
   { path: '/contact', label: s.nav_contact },

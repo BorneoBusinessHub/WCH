@@ -6,7 +6,7 @@ const dist = 'dist';
 const fail = [];
 const read = (p) => readFileSync(p, 'utf8');
 
-const routes = ['', 'about', 'project', 'services', 'credentials', 'work-with-us', 'contact', 'thank-you'];
+const routes = ['', 'about', 'project', 'services', 'governance', 'credentials', 'work-with-us', 'contact', 'thank-you'];
 for (const r of routes) {
   for (const prefix of ['', 'ms']) {
     const f = join(dist, prefix, r, 'index.html');

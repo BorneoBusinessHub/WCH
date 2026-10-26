@@ -1,0 +1,15 @@
+---
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+---
+<ol class="status">
+  {site.status.map((st) => (
+    <li class:list={{ done: st.done }}>
+      <span class="st">{st.done ? s.trk_done : s.trk_next}</span>
+      <h3>{s[`trk_${st.key}_t`]}</h3>
+      <p>{s[`trk_${st.key}_b`]}</p>
+    </li>
+  ))}
+</ol>
+<p class="status-note">{s.trk_note}</p>
