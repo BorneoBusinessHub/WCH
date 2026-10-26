@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import SourceNote from '../components/SourceNote.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { t, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+const status = ['power', 'land', 'next'];
+const power = ['avail', 'baleh', '2030', '2035'];
+const req = ['power', 'net', 'cool', 'people'];
+---
+<Base locale={locale} path="/project" title={s.project_title} description={s.project_desc}>
+  <Hero compact eyebrow={s.project_eyebrow} title={s.project_h1} lead={s.project_lead} />
+  <FactStrip locale={locale} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.project_status_title}</h2></div>
+      <ul class="rule-list">
+        {status.map((k) => <li><strong>{s[`status_${k}_t`]}</strong><span>{s[`status_${k}_b`]}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p></div>
+      <figure class="phase" style="margin:0">
+        <svg viewBox="0 0 1000 150" role="img" aria-labelledby="phase-t">
+          <title id="phase-t">{s.phase_svg_title}</title>
+          <text x="0" y="22" font-size="18" fill="#4a5a6a">{s.phase_total_label}</text>
+          <rect x="1" y="40" width="998" height="56" rx="4" fill="#ffffff" stroke="#9aa8b6" stroke-dasharray="6 5" />
+          <rect x="1" y="40" width="200" height="56" rx="4" fill="#0fa3a3" />
+          <text x="16" y="75" font-size="18" font-weight="600" fill="#0b1f33">2 MW</text>
+          <text x="600" y="75" font-size="18" fill="#4a5a6a" text-anchor="middle">8 MW</text>
+          <text x="0" y="132" font-size="17" fill="#0a7c7c" font-weight="600">{s.phase_1_label}</text>
+          <text x="600" y="132" font-size="17" fill="#4a5a6a" text-anchor="middle">{s.phase_2_label}</text>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.project_power_title}</h2><p class="lead">{s.project_power_lead}</p></div>
+      <div class="grid grid-4">
+        {power.map((k) => <div class="card stat"><div class="v">{s[`power_${k}_v`]}</div><div class="l">{s[`power_${k}_l`]}</div></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.project_req_title}</h2><p class="lead">{s.project_req_lead}</p></div>
+      <div class="grid grid-4">
+        {req.map((k) => <div class="card"><h3>{s[`req_${k}_t`]}</h3><p>{s[`req_${k}_b`]}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid grid-2">
+      <div>
+        <h2>{s.project_market_title}</h2>
+        <p>{s.market_1}</p>
+        <p>{s.market_2}</p>
+      </div>
+      <SourceNote locale={locale} />
+    </div>
+  </section>
+  <CtaBand locale={locale} />
+</Base>

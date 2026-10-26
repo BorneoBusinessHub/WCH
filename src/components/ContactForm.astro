@@ -1,0 +1,39 @@
+---
+import { t, localePath, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+const types = [
+  ['government', s.type_government],
+  ['agency', s.type_agency],
+  ['contractor', s.type_contractor],
+  ['partner', s.type_partner],
+  ['other', s.type_other],
+];
+---
+<form class="form" name="enquiry" method="POST" action={localePath(locale, '/thank-you')} data-netlify="true" netlify-honeypot="company_website">
+  <input type="hidden" name="form-name" value="enquiry" />
+  <input type="hidden" name="language" value={locale} />
+  <p class="hp"><label>Leave empty <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+  <div class="field-row">
+    <div class="field"><label for="f-name">{s.form_name}</label><input id="f-name" name="name" required autocomplete="name" /></div>
+    <div class="field"><label for="f-org">{s.form_org}</label><input id="f-org" name="organisation" required autocomplete="organization" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label for="f-email">{s.form_email}</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+    <div class="field"><label for="f-phone">{s.form_phone}</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+  </div>
+  <div class="field">
+    <label for="f-type">{s.form_type}</label>
+    <select id="f-type" name="type" required>
+      {types.map(([v, l]) => <option value={v}>{l}</option>)}
+    </select>
+  </div>
+  <div class="field"><label for="f-msg">{s.form_message}</label><textarea id="f-msg" name="message" required></textarea></div>
+  <p class="small">{s.form_privacy}</p>
+  <div><button class="btn" type="submit">{s.form_submit}</button></div>
+</form>
+<script>
+  const type = new URLSearchParams(location.search).get('type');
+  const sel = document.getElementById('f-type') as HTMLSelectElement | null;
+  if (type && sel && [...sel.options].some((o) => o.value === type)) sel.value = type;
+</script>

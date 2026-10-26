@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import PersonCard from '../components/PersonCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+const { company } = site;
+---
+<Base locale={locale} path="/about" title={s.about_title} description={s.about_desc}>
+  <Hero compact eyebrow={s.about_eyebrow} title={s.about_h1} lead={s.about_lead} />
+
+  <section class="section">
+    <div class="wrap grid grid-2">
+      <div>
+        <h2>{s.about_profile_title}</h2>
+        <p>{s.about_profile_1}</p>
+        <p>{s.about_profile_2}</p>
+      </div>
+      <ul class="rule-list" aria-label={s.about_profile_title}>
+        <li><strong>{s.form_org}</strong><span>{company.name}</span></li>
+        {company.ssm && <li><strong>{s.about_reg_label}</strong><span>{company.ssm}</span></li>}
+        {company.address && <li><strong>{s.contact_address_label}</strong><span>{company.address}</span></li>}
+        <li><strong>{s.contact_email_label}</strong><span><a href={`mailto:${company.email}`}>{company.email}</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.about_mission_title}</h2></div>
+      <div class="grid grid-3">
+        {[1, 2, 3].map((i) => <div class="card"><span class="num">0{i}</span><h3>{s[`about_mission_${i}_t`]}</h3><p>{s[`about_mission_${i}_b`]}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.about_team_title}</h2><p class="lead">{s.about_team_lead}</p></div>
+      <div class="grid grid-3">
+        {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
+      <div class="grid grid-2">
+        {site.advisers.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
+      </div>
+    </div>
+  </section>
+  <CtaBand locale={locale} />
+</Base>

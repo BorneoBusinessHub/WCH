@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { t, localePath, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+---
+<Base locale={locale} path="/thank-you" title={s.thanks_title} description={s.thanks_body} noindex>
+  <Hero compact eyebrow="WCH" title={s.thanks_h1} lead={s.thanks_body}>
+    <div class="btn-row"><a class="btn" href={localePath(locale, '/')}>{s.thanks_back}</a></div>
+  </Hero>
+</Base>

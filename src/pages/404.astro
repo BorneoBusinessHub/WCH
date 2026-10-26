@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { t } from '../i18n/t';
+const s = t('en');
+const m = t('ms');
+---
+<Base locale="en" path="/" title={s.nf_title} description={s.nf_body} noindex>
+  <Hero compact eyebrow="404" title={s.nf_h1} lead={`${s.nf_body} / ${m.nf_body}`}>
+    <div class="btn-row"><a class="btn" href="/">{s.thanks_back}</a><a class="btn ghost" href="/ms/">{m.thanks_back}</a></div>
+  </Hero>
+</Base>

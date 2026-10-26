@@ -1,0 +1,12 @@
+---
+import { t, localePath, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+---
+<section class="cta-band dark">
+  <div class="wrap">
+    <h2>{s.home_cta_title}</h2>
+    <p class="lead">{s.home_cta_body}</p>
+    <div class="btn-row"><a class="btn" href={localePath(locale, '/contact')}>{s.cta_contact}</a></div>
+  </div>
+</section>

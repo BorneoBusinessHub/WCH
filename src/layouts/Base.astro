@@ -1,0 +1,106 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/global.css';
+import { t, localePath, otherLocale, hasCredentials, site, type Locale } from '../i18n/t';
+
+interface Props { locale: Locale; path: string; title: string; description: string; noindex?: boolean }
+const { locale, path, title, description, noindex = false } = Astro.props;
+const s = t(locale);
+const other = otherLocale(locale);
+const origin = 'https://wch.global';
+const enUrl = origin + localePath('en', path);
+const msUrl = origin + localePath('ms', path);
+const canonical = locale === 'en' ? enUrl : msUrl;
+const norm = (p: string) => p.replace(/^\/+|\/+$/g, '');
+
+const nav = [
+  { path: '/', label: s.nav_home },
+  { path: '/about', label: s.nav_about },
+  { path: '/project', label: s.nav_project },
+  { path: '/services', label: s.nav_services },
+  ...(hasCredentials ? [{ path: '/credentials', label: s.nav_credentials }] : []),
+  { path: '/work-with-us', label: s.nav_work },
+  { path: '/contact', label: s.nav_contact },
+];
+const { company } = site;
+---
+<!doctype html>
+<html lang={locale === 'en' ? 'en-MY' : 'ms-MY'}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en" href={enUrl} />
+  <link rel="alternate" hreflang="ms" href={msUrl} />
+  <link rel="alternate" hreflang="x-default" href={enUrl} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={company.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content={locale === 'en' ? 'en_MY' : 'ms_MY'} />
+  <meta name="theme-color" content="#0b1f33" />
+</head>
+<body>
+  <a class="skip" href="#main">{s.skip}</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href={localePath(locale, '/')}>
+        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="4" fill="#0fa3a3"/><path d="M7 10l3 12 3-9 3 9 3-12M22 10v12M22 16h4M26 10v12" stroke="#0b1f33" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>WCH <small>Solutions</small></span>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">{s.menu}</button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        {nav.map((n) => (
+          <a href={localePath(locale, n.path)} aria-current={norm(n.path) === norm(path) ? 'page' : undefined}>{n.label}</a>
+        ))}
+        <a class="lang" href={localePath(other, path)} hreflang={other} lang={other === 'en' ? 'en' : 'ms'} title={s.lang_other}>{s.lang_other_short}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <p class="name">{company.name}</p>
+          {company.ssm && <p>{s.footer_reg} {company.ssm}</p>}
+          <p>{s.footer_tag}</p>
+        </div>
+        <div>
+          <ul>
+            {nav.slice(1).map((n) => <li><a href={localePath(locale, n.path)}>{n.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
+            {company.address && <li>{company.address}</li>}
+            <li><a href={localePath(other, path)} hreflang={other}>{s.lang_other}</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="base">© {new Date().getFullYear()} {company.name}. {s.footer_rights}</p>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+    const nav = document.getElementById('site-nav');
+    btn?.addEventListener('click', () => {
+      const open = nav!.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  </script>
+</body>
+</html>

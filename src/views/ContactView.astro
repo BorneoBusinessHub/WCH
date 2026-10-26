@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+const { company } = site;
+---
+<Base locale={locale} path="/contact" title={s.contact_title} description={s.contact_desc}>
+  <Hero compact eyebrow={s.contact_eyebrow} title={s.contact_h1} lead={s.contact_lead} />
+  <section class="section">
+    <div class="wrap grid grid-2" style="align-items:start">
+      <ContactForm locale={locale} />
+      <div class="card">
+        <h2 style="font-size:1.25rem">{s.contact_direct_title}</h2>
+        <ul class="rule-list">
+          <li><strong>{s.contact_email_label}</strong><a href={`mailto:${company.email}`}>{company.email}</a></li>
+          {company.address && <li><strong>{s.contact_address_label}</strong><span>{company.address}</span></li>}
+          <li><strong>{s.contact_web_label}</strong><span>{company.domain}</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

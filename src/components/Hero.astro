@@ -1,0 +1,12 @@
+---
+interface Props { eyebrow: string; title: string; lead: string; compact?: boolean }
+const { eyebrow, title, lead, compact = false } = Astro.props;
+---
+<section class:list={['hero', 'dark', { compact }]}>
+  <div class="wrap">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lead">{lead}</p>
+    <slot />
+  </div>
+</section>

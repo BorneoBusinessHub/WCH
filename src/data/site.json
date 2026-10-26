@@ -1,0 +1,32 @@
+{
+  "company": {
+    "name": "WCH Solutions Sdn Bhd",
+    "short": "WCH",
+    "ssm": "",
+    "email": "info@wch.global",
+    "address": "",
+    "domain": "wch.global"
+  },
+  "facts": [
+    { "value": "10", "unit": "MW", "key": "fact_contract" },
+    { "value": "2", "unit": "MW", "key": "fact_phase1" },
+    { "value": "10", "unit": "yr", "key": "fact_term" },
+    { "value": "5.9", "unit": "GW", "key": "fact_grid" }
+  ],
+  "team": [
+    { "name": "Jason Wong", "roleKey": "role_ceo", "bioKey": "bio_jason", "photo": "" },
+    { "name": "Leo Tan", "roleKey": "role_cto", "bioKey": "bio_leo", "photo": "" },
+    { "name": "Perry Wong", "roleKey": "role_coo", "bioKey": "bio_perry", "photo": "" }
+  ],
+  "advisers": [
+    { "name": "Datuk Justine Jinggut", "roleKey": "role_chairman", "bioKey": "bio_justine", "photo": "" },
+    { "name": "Andy Yek, ABK", "roleKey": "role_consultant", "bioKey": "bio_andy", "photo": "" }
+  ],
+  "credentials": [],
+  "partners": [],
+  "sources": [
+    { "org": "IEA", "title": "Key Questions on Energy and AI", "date": "2026" },
+    { "org": "Sarawak Energy", "title": "Generation capacity and development targets", "date": "16 Jun 2025" },
+    { "org": "Microsoft", "title": "Malaysia West cloud region launch", "date": "28 May 2025" }
+  ]
+}

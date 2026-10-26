@@ -1,0 +1,14 @@
+---
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+---
+<section class="facts" aria-label="Key facts">
+  <div class="wrap">
+    <ul>
+      {site.facts.map((f) => (
+        <li><div class="v">{f.value}<span>{f.unit}</span></div><div class="l">{s[f.key]}</div></li>
+      ))}
+    </ul>
+  </div>
+</section>

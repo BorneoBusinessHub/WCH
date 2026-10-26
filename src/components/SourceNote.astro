@@ -1,0 +1,12 @@
+---
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale);
+---
+<div class="sources">
+  <strong>{s.sources_title}</strong>
+  <ul>
+    {site.sources.map((src) => <li>{src.org} ({src.date}). {src.title}.</li>)}
+  </ul>
+  <p>{s.sources_note}</p>
+</div>

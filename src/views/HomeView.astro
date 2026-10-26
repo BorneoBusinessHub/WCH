@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import FactStrip from '../components/FactStrip.astro';
+import PersonCard from '../components/PersonCard.astro';
+import SourceNote from '../components/SourceNote.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { t, localePath, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+const L = (p: string) => localePath(locale, p);
+const why = [1, 2, 3];
+const svc = ['space', 'dev', 'host', 'ops'];
+---
+<Base locale={locale} path="/" title={s.home_title} description={s.home_desc}>
+  <Hero eyebrow={s.home_eyebrow} title={s.home_h1} lead={s.home_lead}>
+    <div class="btn-row">
+      <a class="btn" href={L('/project')}>{s.cta_project}</a>
+      <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
+    </div>
+  </Hero>
+  <FactStrip locale={locale} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{s.home_why_eyebrow}</p>
+        <h2>{s.home_why_title}</h2>
+      </div>
+      <div class="grid grid-3">
+        {why.map((i) => (
+          <div class="card"><span class="num">0{i}</span><h3>{s[`home_why_${i}_t`]}</h3><p>{s[`home_why_${i}_b`]}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tone-paper">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{s.home_build_eyebrow}</p>
+        <h2>{s.home_build_title}</h2>
+        <p class="lead">{s.home_build_lead}</p>
+      </div>
+      <div class="grid grid-4">
+        {svc.map((k) => <div class="card"><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
+      </div>
+      <div class="btn-row"><a class="btn ghost" href={L('/services')}>{s.cta_services}</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">{s.home_team_eyebrow}</p>
+        <h2>{s.home_team_title}</h2>
+        <p class="lead">{s.home_team_lead}</p>
+      </div>
+      <div class="grid grid-3">
+        {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
+      </div>
+      <div class="btn-row"><a class="btn ghost" href={L('/about')}>{s.nav_about}</a></div>
+    </div>
+  </section>
+
+  <section class="section tone-paper"><div class="wrap"><SourceNote locale={locale} /></div></section>
+  <CtaBand locale={locale} />
+</Base>
