@@ -1,0 +1,20 @@
+---
+// Project status printed as an itinerary slip.
+import { t, site, type Locale } from '../i18n/t';
+const { locale } = Astro.props as { locale: Locale };
+const s = t(locale) as Record<string, string>;
+const done = site.status.filter((x) => x.done);
+const next = site.status.filter((x) => !x.done);
+---
+<div class="slip">
+  <h3>{s.slip_secured}</h3>
+  <ul>
+    {done.map((x) => <li class="done"><span class="what">{s[`trk_${x.key}_t`]}</span><span class="dots" aria-hidden="true"></span><span class="val">{s[`trk_${x.key}_b`]}</span></li>)}
+  </ul>
+  <h3>{s.slip_next}</h3>
+  <ul>
+    {next.map((x) => <li><span class="what">{s[`trk_${x.key}_t`]}</span><span class="dots" aria-hidden="true"></span><span class="val">{s[`trk_${x.key}_b`]}</span></li>)}
+  </ul>
+  <div class="result"><span>{s.slip_result}</span><span>{s.slip_result_r}</span></div>
+</div>
+<p class="small slip-note">{s.trk_note}</p>

@@ -1,20 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import { photos, type PhotoKey } from '../data/photos';
-interface Props { eyebrow: string; title: string; lead: string; compact?: boolean; photo?: PhotoKey; credit?: string }
-const { eyebrow, title, lead, compact = false, photo, credit } = Astro.props;
+interface Props { title: string; lead: string; compact?: boolean; photo?: PhotoKey; credit?: string; eyebrow?: string }
+const { title, lead, photo, credit } = Astro.props;
 ---
-<section class:list={['hero', 'dark', { compact, 'has-media': photo }]}>
+<section class:list={['hero', { 'has-media': photo }]}>
   {photo && (
     <div class="hero-media">
-      <Image src={photos[photo]} alt="" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" format="webp" quality={72} />
+      <Image src={photos[photo]} alt="" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" format="webp" quality={70} />
     </div>
   )}
   <div class="wrap inner">
-    <p class="eyebrow">{eyebrow}</p>
-    <h1>{title}</h1>
-    <p class="lead">{lead}</p>
-    <slot />
+    <h1 class="reveal">{title}</h1>
+    <p class="lead reveal d1">{lead}</p>
+    <div class="reveal d2"><slot /></div>
   </div>
   {credit && <p class="photo-credit">{credit}</p>}
 </section>

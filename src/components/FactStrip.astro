@@ -3,14 +3,12 @@ import { t, site, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 ---
-<section class="facts" aria-label="Key facts">
+<section class="section tone" aria-label="Key facts">
   <div class="wrap">
-    <div class="bezel"><div class="core">
-      <ul>
-        {site.facts.map((f) => (
-          <li><div class="v">{f.value}<span>{f.unit}</span></div><div class="l">{s[f.key]}</div></li>
-        ))}
-      </ul>
-    </div></div>
+    <ul class="grid grid-4" style="list-style:none;padding:0;margin:0">
+      {site.facts.map((f, i) => (
+        <li class={`reveal d${i}`}><div style="font-size:var(--s-head);font-weight:600;letter-spacing:-0.03em;line-height:1">{f.value} {f.unit}</div><p class="small" style="margin-top:10px">{s[f.key]}</p></li>
+      ))}
+    </ul>
   </div>
 </section>

@@ -10,8 +10,8 @@ const milestones = site.milestones as { date: string; en: string; ms: string }[]
 {creds.length > 0 && (
   <div class="grid grid-3">
     {creds.map((c) => (
-      <div class="card honour">
-        <span class="badge">✓ {s.proof_verified}</span>
+      <div class="card">
+        
         <h3>{c.title}</h3>
         <p class="small">{[c.issuer, c.ref, c.date].filter(Boolean).join(' · ')}</p>
       </div>

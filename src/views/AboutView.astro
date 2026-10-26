@@ -18,7 +18,7 @@ const { company } = site;
         <p>{s.about_profile_1}</p>
         <p>{s.about_profile_2}</p>
       </div>
-      <ul class="rule-list" aria-label={s.about_profile_title}>
+      <ul class="facts-list" aria-label={s.about_profile_title}>
         <li><strong>{s.form_org}</strong><span>{company.name}</span></li>
         {company.ssm && <li><strong>{s.about_reg_label}</strong><span>{company.ssm}</span></li>}
         {company.address && <li><strong>{s.contact_address_label}</strong><span>{company.address}</span></li>}
@@ -27,11 +27,11 @@ const { company } = site;
     </div>
   </section>
 
-  <section class="section tone-paper">
+  <section class="section tone">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.about_mission_title}</h2></div>
       <div class="grid grid-3">
-        {[1, 2, 3].map((i) => <div class="card reveal"><span class="num">0{i}</span><h3>{s[`about_mission_${i}_t`]}</h3><p>{s[`about_mission_${i}_b`]}</p></div>)}
+        {[1, 2, 3].map((i) => <div class="card reveal"><h3>{s[`about_mission_${i}_t`]}</h3><p>{s[`about_mission_${i}_b`]}</p></div>)}
       </div>
     </div>
   </section>
@@ -39,18 +39,14 @@ const { company } = site;
   <section class="section">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.about_team_title}</h2><p class="lead">{s.about_team_lead}</p></div>
-      <div class="grid grid-3">
-        {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
-      </div>
+      <div class="team">{site.team.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i} delay={i} />)}</div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
-      <div class="grid grid-2">
-        {site.advisers.map((p) => <PersonCard honour name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
-      </div>
+      <div class="team">{site.advisers.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i + 3} delay={i} />)}</div>
     </div>
   </section>
   <CtaBand locale={locale} />

@@ -14,21 +14,21 @@ const types = [
   <input type="hidden" name="form-name" value="enquiry" />
   <input type="hidden" name="language" value={locale} />
   <p class="hp"><label>Leave empty <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
-  <div class="field-row">
-    <div class="field"><label for="f-name">{s.form_name}</label><input id="f-name" name="name" required autocomplete="name" /></div>
-    <div class="field"><label for="f-org">{s.form_org}</label><input id="f-org" name="organisation" required autocomplete="organization" /></div>
+  <div class="field-row reveal d0">
+    <div class="field reveal d1"><label for="f-name">{s.form_name}</label><input id="f-name" name="name" required autocomplete="name" /></div>
+    <div class="field reveal d2"><label for="f-org">{s.form_org}</label><input id="f-org" name="organisation" required autocomplete="organization" /></div>
   </div>
-  <div class="field-row">
-    <div class="field"><label for="f-email">{s.form_email}</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
-    <div class="field"><label for="f-phone">{s.form_phone}</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+  <div class="field-row reveal d3">
+    <div class="field reveal d0"><label for="f-email">{s.form_email}</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+    <div class="field reveal d1"><label for="f-phone">{s.form_phone}</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
   </div>
-  <div class="field">
+  <div class="field reveal d2">
     <label for="f-type">{s.form_type}</label>
     <select id="f-type" name="type" required>
       {types.map(([v, l]) => <option value={v}>{l}</option>)}
     </select>
   </div>
-  <div class="field"><label for="f-msg">{s.form_message}</label><textarea id="f-msg" name="message" required></textarea></div>
+  <div class="field reveal d3"><label for="f-msg">{s.form_message}</label><textarea id="f-msg" name="message" required></textarea></div>
   <p class="small">{s.form_privacy}</p>
   <div><button class="btn" type="submit">{s.form_submit}</button></div>
 </form>

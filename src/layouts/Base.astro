@@ -2,29 +2,32 @@
 import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
-import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-sans/700.css';
 import '../styles/global.css';
+import { Image } from 'astro:assets';
+import { photos } from '../data/photos';
+import credits from '../assets/found/credits.json';
 import { t, localePath, otherLocale, hasCredentials, site, type Locale } from '../i18n/t';
 
 interface Props { locale: Locale; path: string; title: string; description: string; noindex?: boolean }
 const { locale, path, title, description, noindex = false } = Astro.props;
-const s = t(locale);
+const s = t(locale) as Record<string, string>;
 const other = otherLocale(locale);
 const origin = 'https://wch.global';
 const enUrl = origin + localePath('en', path);
 const msUrl = origin + localePath('ms', path);
 const canonical = locale === 'en' ? enUrl : msUrl;
 const norm = (p: string) => p.replace(/^\/+|\/+$/g, '');
+const L = (p: string) => localePath(locale, p);
 
+// Five links and one action
 const nav = [
-  { path: '/', label: s.nav_home },
-  { path: '/about', label: s.nav_about },
   { path: '/project', label: s.nav_project },
+  { path: '/about', label: s.nav_about },
   { path: '/services', label: s.nav_services },
   { path: '/governance', label: s.nav_governance },
   ...(hasCredentials ? [{ path: '/credentials', label: s.nav_credentials }] : []),
   { path: '/work-with-us', label: s.nav_work },
-  { path: '/contact', label: s.nav_contact },
 ];
 const { company } = site;
 ---
@@ -48,23 +51,23 @@ const { company } = site;
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:locale" content={locale === 'en' ? 'en_MY' : 'ms_MY'} />
-  <meta name="theme-color" content="#0b1f33" />
+  <meta name="theme-color" content="#f2f3ef" />
   <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip" href="#main">{s.skip}</a>
   <header class="site-header">
-    <div class="bar">
-      <a class="brand" href={localePath(locale, '/')}>
-        <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0fa3a3"/><path d="M7 10l3 12 3-9 3 9 3-12M22 10v12M22 16h4M26 10v12" stroke="#06131f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>WCH <small>Solutions</small></span>
+    <div class="wrap bar">
+      <a class="brand" href={L('/')}>
+        <span class="wm">WCH</span><span class="wm-sub">Solutions</span>
       </a>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><b class="sr-only">{s.menu}</b></button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label={s.menu}><span></span><span></span></button>
       <nav class="nav" id="site-nav" aria-label="Main">
         {nav.map((n) => (
-          <a href={localePath(locale, n.path)} aria-current={norm(n.path) === norm(path) ? 'page' : undefined}>{n.label}</a>
+          <a href={L(n.path)} aria-current={norm(n.path) === norm(path) ? 'page' : undefined}>{n.label}</a>
         ))}
-        <a class="lang" href={localePath(other, path)} hreflang={other} lang={other === 'en' ? 'en' : 'ms'} title={s.lang_other}>{s.lang_other_short}</a>
+        <a class="lang" href={localePath(other, path)} hreflang={other} lang={other === 'en' ? 'en' : 'ms'}>{s.lang_other}</a>
+        <a class="nav-cta" href={L('/contact')} aria-current={norm(path) === 'contact' ? 'page' : undefined}>{s.nav_contact}</a>
       </nav>
     </div>
   </header>
@@ -74,27 +77,26 @@ const { company } = site;
   </main>
 
   <footer class="site-footer">
+    <div class="bg"><Image src={photos.river} alt="" widths={[800, 1400, 2000]} sizes="100vw" format="webp" quality={65} loading="lazy" /></div>
+    <div class="wrap top">
+      <ul>
+        <li><a href={L('/')}>{s.nav_home}</a></li>
+        {nav.map((n) => <li><a href={L(n.path)}>{n.label}</a></li>)}
+        <li><a href={L('/contact')}>{s.nav_contact}</a></li>
+      </ul>
+      <ul class="contact">
+        <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
+        {company.address && <li>{company.address}</li>}
+        <li>{s.contact_place}</li>
+        <li><a href={localePath(other, path)} hreflang={other}>{s.lang_other}</a></li>
+      </ul>
+    </div>
     <div class="wrap">
-      <div class="cols">
-        <div>
-          <p class="name">{company.name}</p>
-          {company.ssm && <p>{s.footer_reg} {company.ssm}</p>}
-          <p>{s.footer_tag}</p>
-        </div>
-        <div>
-          <ul>
-            {nav.slice(1).map((n) => <li><a href={localePath(locale, n.path)}>{n.label}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
-            {company.address && <li>{company.address}</li>}
-            <li><a href={localePath(other, path)} hreflang={other}>{s.lang_other}</a></li>
-          </ul>
-        </div>
+      <p class="word" aria-hidden="true">WCH</p>
+      <div class="legal">
+        <p>© {new Date().getFullYear()} {company.name}{company.ssm && ` (${s.footer_reg} ${company.ssm})`}. {s.footer_rights}</p>
+        <p>{s.credits_title}: {s.credit_deck} {credits.map((c: { credit: string }) => c.credit).join('; ')}.</p>
       </div>
-      <p class="base">© {new Date().getFullYear()} {company.name}. {s.footer_rights}</p>
     </div>
   </footer>
 
@@ -104,15 +106,13 @@ const { company } = site;
     btn?.addEventListener('click', () => {
       const open = nav!.classList.toggle('open');
       btn.setAttribute('aria-expanded', String(open));
-      document.body.classList.toggle('menu-open', open);
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && nav?.classList.contains('open')) btn?.click();
     });
-
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }, { rootMargin: '0px 0px -6% 0px' });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
   </script>
 </body>

@@ -4,7 +4,9 @@ import Hero from '../components/Hero.astro';
 import FactStrip from '../components/FactStrip.astro';
 import SourceNote from '../components/SourceNote.astro';
 import CtaBand from '../components/CtaBand.astro';
-import StatusTracker from '../components/StatusTracker.astro';
+import Slip from '../components/Slip.astro';
+import { Image } from 'astro:assets';
+import { photos } from '../data/photos';
 import PhaseBar from '../components/PhaseBar.astro';
 import { t, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
@@ -17,16 +19,16 @@ const req = ['power', 'net', 'cool', 'people'];
   <FactStrip locale={locale} />
 
   <section class="section">
-    <div class="wrap">
-      <div class="section-head reveal"><h2>{s.project_status_title}</h2></div>
-      <div class="bezel reveal"><div class="core"><StatusTracker locale={locale} /></div></div>
+    <div class="wrap split-2">
+      <div class="reveal"><h2>{s.project_status_title}</h2><p class="lead">{s.trk_lead}</p><Slip locale={locale} /></div>
+      <figure class="side-photo reveal d1"><Image src={photos.land} alt={s.alt_land} widths={[600, 900, 1200]} sizes="(min-width: 900px) 45vw, 100vw" format="webp" quality={70} /></figure>
     </div>
   </section>
 
-  <section class="section tone-paper">
-    <div class="wrap">
-      <div class="section-head reveal"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p></div>
-      <div class="bezel reveal"><div class="core"><PhaseBar locale={locale} /></div></div>
+  <section class="section tone">
+    <div class="wrap split-2">
+      <figure class="side-photo reveal"><Image src={photos.switchyard} alt={s.alt_switchyard} widths={[600, 900, 1200]} sizes="(min-width: 900px) 45vw, 100vw" format="webp" quality={70} /></figure>
+      <div class="reveal d1"><h2>{s.project_phase_title}</h2><p class="lead">{s.project_phase_body}</p><PhaseBar locale={locale} /></div>
     </div>
   </section>
 
@@ -39,7 +41,7 @@ const req = ['power', 'net', 'cool', 'people'];
     </div>
   </section>
 
-  <section class="section tone-paper">
+  <section class="section tone">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.project_req_title}</h2><p class="lead">{s.project_req_lead}</p></div>
       <div class="grid grid-4">

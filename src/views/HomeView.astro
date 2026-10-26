@@ -1,140 +1,177 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
-import FactStrip from '../components/FactStrip.astro';
-import StatusTracker from '../components/StatusTracker.astro';
-import PhaseBar from '../components/PhaseBar.astro';
+import Slip from '../components/Slip.astro';
 import PersonCard from '../components/PersonCard.astro';
 import ProofWall from '../components/ProofWall.astro';
-import SourceNote from '../components/SourceNote.astro';
 import { photos } from '../data/photos';
 import { t, localePath, site, hasProof, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
 const L = (p: string) => localePath(locale, p);
-const svc = ['space', 'dev', 'host', 'ops'];
-const audiences = [
-  { k: 'gov', href: L('/project') },
-  { k: 'con', href: L('/work-with-us') },
-  { k: 'par', href: L('/contact') + '?type=partner' },
+
+// Stage photographs, in the order their sections arrive.
+const stage = [
+  { key: 'bakun', alt: s.alt_dam },
+  { key: 'river', alt: s.alt_river },
+  { key: 'land', alt: s.alt_land },
+  { key: 'serverHall', alt: s.alt_hall },
+] as const;
+
+const feats = [
+  { k: 'space', photo: photos.switchyard, alt: s.alt_switchyard },
+  { k: 'dev', photo: photos.cooling, alt: s.alt_cooling },
+  { k: 'host', photo: photos.rack, alt: s.alt_rack },
+  { k: 'ops', photo: photos.serverHall, alt: s.alt_hall },
 ];
+const people = [...site.team, ...site.advisers];
 ---
 <Base locale={locale} path="/" title={s.home_title} description={s.home_desc}>
-  <Hero eyebrow={s.home_eyebrow} title={s.home_h1} lead={s.home_lead} photo="bakun" credit={s.credit_bakun}>
-    <div class="btn-row">
-      <a class="btn" href={L('/project')}>{s.cta_project}</a>
-      <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
-      {site.company.profilePdf && <a class="btn ghost" href={site.company.profilePdf} download>{s.profile_pdf}</a>}
+  <div class="stage">
+    <div class="stage-photo">
+      {stage.map((p, i) => (
+        <Image src={photos[p.key]} alt={i === 0 ? p.alt : ''} data-photo={p.key} class={i === 0 ? 'on' : ''}
+          widths={[640, 1000, 1400, 1800]} sizes="(min-width: 960px) 50vw, 100vw" format="webp" quality={70}
+          loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
+      ))}
+      <div class="stage-bar"><span>{s.bar_left}</span><span>{s.bar_right}</span></div>
     </div>
-  </Hero>
-  <FactStrip locale={locale} />
 
-  <section class="section">
+    <div class="stage-text">
+      <section class="hero-sheet" data-photo="bakun">
+        <h1 class="reveal">{s.home_h1}</h1>
+        <p class="lead reveal d1">{s.home_lead}</p>
+        <div class="btn-row reveal d2">
+          <a class="btn" href={L('/project')}>{s.cta_project}</a>
+          <a class="btn ghost" href={L('/contact')}>{s.cta_contact}</a>
+          {site.company.profilePdf && <a class="btn ghost" href={site.company.profilePdf} download>{s.profile_pdf}</a>}
+        </div>
+      </section>
+
+      <section class="why" data-photo="river" aria-labelledby="why-h">
+        <h2 id="why-h" class="reveal">{s.why_title}</h2>
+        <p class="reveal d1">{s.home_why_1_b}</p>
+        <p class="reveal d2">{s.home_why_2_b}</p>
+        <p class="reveal d3">{s.home_land_b}</p>
+        <p class="reveal d4">{s.home_why_3_b} <a href={L('/project')}>{s.cta_project}</a></p>
+      </section>
+
+      <section data-photo="land" aria-labelledby="status-h">
+        <h2 id="status-h" class="reveal">{s.trk_title}</h2>
+        <p class="reveal d1">{s.trk_lead}</p>
+        <div class="reveal d2"><Slip locale={locale} /></div>
+      </section>
+
+      <section data-photo="serverHall" aria-labelledby="calc-h">
+        <h2 id="calc-h" class="reveal">{s.calc_title}</h2>
+        <p class="reveal d1">{s.calc_lead}</p>
+        <form class="calc reveal d2" data-calc onsubmit="return false">
+          <label for="kw">{s.calc_label}</label>
+          <div class="calc-row">
+            <input id="kw-range" type="range" min="100" max="12000" step="100" value="500" aria-label={s.calc_label} />
+            <input id="kw" type="number" min="1" max="100000" step="50" value="500" inputmode="numeric" />
+          </div>
+          <div class="calc-out" aria-live="polite">
+            <p class="calc-big"><span class="big" data-out="p1">25%</span><span>{s.calc_p1}</span></p>
+            <p>{s.calc_contract}: <strong data-out="contract">5%</strong></p>
+            <p>{s.calc_grid}: <strong data-out="grid">0.008%</strong></p>
+          </div>
+          <p class="calc-verdict" data-out="verdict">{s.calc_fit}</p>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="stats-h">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">{s.trk_eyebrow}</p>
-        <h2>{s.trk_title}</h2>
-        <p class="lead">{s.trk_lead}</p>
+      <h2 id="stats-h" class="reveal">{s.stats_title}</h2>
+      <div class="mosaic reveal d1">
+        <figure class="m-photo"><Image src={photos.switchyard} alt={s.alt_switchyard} widths={[700, 1100, 1500]} sizes="(min-width: 900px) 66vw, 100vw" format="webp" quality={70} /></figure>
+        <div class="tile tile-navy"><div class="fig">10<span>MW</span></div><p>{s.tile_contract}</p></div>
+        <div class="tile tile-gold"><div class="fig">2<span>MW</span></div><p>{s.fact_phase1}</p></div>
       </div>
-      <div class="bezel reveal reveal-d1"><div class="core"><StatusTracker locale={locale} /></div></div>
     </div>
   </section>
 
-  <section class="section tone-paper">
+  <section class="section" aria-labelledby="team-h">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">{s.home_why_eyebrow}</p>
-        <h2>{s.home_why_title}</h2>
+      <h2 id="team-h" class="reveal">{s.home_team_title}</h2>
+      <p class="lead reveal d1" style="margin-bottom:40px">{s.home_team_lead}</p>
+      <div class="team">
+        {people.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i} delay={i} />)}
       </div>
-      <div class="bento">
-        <figure class="photo-card b-photo reveal" style="margin:0">
-          <Image src={photos.land} alt="" widths={[640, 1000, 1400]} sizes="(min-width: 900px) 700px, 100vw" format="webp" quality={72} />
-          <span class="credit">{s.credit_land}</span>
-          <figcaption class="cap"><h3>{s.home_land_t}</h3><p>{s.home_land_b}</p></figcaption>
-        </figure>
-        {[1, 2, 3].map((i) => (
-          <div class={`card b-side reveal reveal-d${i}`}><span class="num">0{i}</span><h3>{s[`home_why_${i}_t`]}</h3><p>{s[`home_why_${i}_b`]}</p></div>
+      <div class="btn-row"><a class="btn ghost" href={L('/about')}>{s.nav_about}</a></div>
+    </div>
+  </section>
+
+  <section class="pinned" aria-labelledby="feat-h">
+    <div class="wrap inner">
+      <div class="head"><h2 id="feat-h">{s.feat_title}</h2><p class="lead">{s.home_build_lead}</p></div>
+      <div class="blocks">
+        {feats.map((f, i) => (
+          <div class:list={['feat', 'reveal', { flip: i % 2 === 1 }]}>
+            <h3>{s[`svc_${f.k}_t`]}</h3>
+            <div class="row">
+              <figure><Image src={f.photo} alt={f.alt} widths={[300, 500]} sizes="(min-width: 600px) 200px, 100vw" format="webp" quality={72} /></figure>
+              <ul>{[1, 2, 3, 4].map((n) => <li>{s[`feat_${f.k}_${n}`]}</li>)}</ul>
+            </div>
+          </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">{s.home_team_eyebrow}</p>
-        <h2>{s.home_team_title}</h2>
-        <p class="lead">{s.home_team_lead}</p>
-      </div>
-      <div class="grid grid-3">
-        {site.team.map((p) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
-      </div>
-      <h3 class="reveal" style="margin:56px 0 20px">{s.home_adv_title}</h3>
-      <div class="grid grid-2">
-        {site.advisers.map((p) => <PersonCard honour wide name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section tone-paper">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">{s.home_phase_eyebrow}</p>
-        <h2>{s.project_phase_title}</h2>
-        <p class="lead">{s.project_phase_body}</p>
-      </div>
-      <div class="bezel reveal"><div class="core"><PhaseBar locale={locale} /></div></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap split">
-      <figure class="media reveal" style="margin:0">
-        <Image src={photos.serverHall} alt={s.credit_server} widths={[560, 900, 1200]} sizes="(min-width: 900px) 560px, 100vw" format="webp" quality={72} />
-        <span class="credit">{s.credit_server}</span>
-      </figure>
-      <div class="reveal reveal-d1">
-        <p class="eyebrow">{s.home_build_eyebrow}</p>
-        <h2>{s.home_build_title}</h2>
-        <p class="lead">{s.home_build_lead}</p>
-        <ul class="svc-list" style="margin-top:28px">
-          {svc.map((k) => <li><div><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div></li>)}
-        </ul>
-        <div class="btn-row"><a class="btn ghost" href={L('/services')}>{s.cta_services}</a></div>
+        <div class="btn-row"><a class="btn" href={L('/services')}>{s.cta_services}</a></div>
       </div>
     </div>
   </section>
 
   {hasProof && (
-    <section class="section tone-paper">
+    <section class="section tone" aria-labelledby="proof-h">
       <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">{s.proof_eyebrow}</p>
-          <h2>{s.proof_title}</h2>
-        </div>
+        <h2 id="proof-h" class="reveal">{s.proof_title}</h2>
         <ProofWall locale={locale} />
       </div>
     </section>
   )}
 
-  <section class="section dark">
+  <section class="mail-stage" aria-labelledby="mail-h">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">{s.aud_eyebrow}</p>
-        <h2>{s.aud_title}</h2>
-      </div>
-      <div class="grid grid-3 audience">
-        {audiences.map((a, i) => (
-          <a class={`card reveal reveal-d${i + 1}`} href={a.href}>
-            <h3>{s[`aud_${a.k}_t`]}</h3>
-            <p>{s[`aud_${a.k}_b`]}</p>
-            <span class="go">{s[`aud_${a.k}_go`]}</span>
-          </a>
-        ))}
+      <h2 id="mail-h" class="reveal">{s.contact_sentence}</h2>
+    </div>
+    <div class="wrap">
+      <a class="mail reveal d1" href={`mailto:${site.company.email}`}>{site.company.email}</a>
+      <div class="corners reveal d2">
+        <p style="margin:0">{s.contact_place}<br /><a href={L('/contact')}>{s.nav_contact}</a></p>
+        <ul>
+          <li><a href={L('/project')}>{s.route_gov}</a></li>
+          <li><a href={L('/work-with-us')}>{s.route_con}</a></li>
+          <li><a href={L('/contact') + '?type=partner'}>{s.route_par}</a></li>
+        </ul>
       </div>
     </div>
   </section>
+<script define:vars={{ t: { fit: s.calc_fit, over: s.calc_over, beyond: s.calc_beyond }, lang: locale === 'en' ? 'en-MY' : 'ms-MY' }}>
+  // The fixed photograph follows the section in view (signature move: slow crossfade).
+  const imgs = [...document.querySelectorAll('.stage-photo img')];
+  const show = (key) => imgs.forEach((im) => im.classList.toggle('on', im.dataset.photo === key));
+  const so = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) show(e.target.dataset.photo);
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  document.querySelectorAll('.stage-text > section[data-photo]').forEach((s) => so.observe(s));
 
-  <section class="section tone-paper" style="padding:48px 0"><div class="wrap"><SourceNote locale={locale} /></div></section>
+  // The live thing: where a load sits in WCH capacity and the Sarawak grid.
+  const f = document.querySelector('[data-calc]');
+  if (f) {
+    const range = f.querySelector('#kw-range'), num = f.querySelector('#kw');
+    const out = (k) => f.querySelector(`[data-out="${k}"]`);
+    const pct = (v) => (v >= 10 ? Math.round(v) : v >= 0.1 ? Math.round(v * 10) / 10 : Math.round(v * 1000) / 1000).toLocaleString(lang) + '%';
+    const update = (kw) => {
+      kw = Math.max(1, Math.min(100000, Number(kw) || 0));
+      out('p1').textContent = pct(kw / 2000 * 100);
+      out('contract').textContent = pct(kw / 10000 * 100);
+      out('grid').textContent = pct(kw / 5900000 * 100);
+      out('verdict').textContent = kw <= 2000 ? t.fit : kw <= 10000 ? t.over : t.beyond;
+    };
+    range.addEventListener('input', () => { num.value = range.value; update(range.value); });
+    num.addEventListener('input', () => { range.value = num.value; update(num.value); });
+    update(num.value);
+  }
+</script>
 </Base>

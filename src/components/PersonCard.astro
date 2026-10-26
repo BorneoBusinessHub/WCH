@@ -1,20 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 import { portraits } from '../data/photos';
-interface Props { name: string; role: string; bio: string; photo?: string; honour?: boolean; wide?: boolean }
-const { name, role, bio, photo, honour = false, wide = false } = Astro.props;
+interface Props { name: string; role: string; bio?: string; photo?: string; tint?: number; delay?: number }
+const { name, role, bio, photo, tint = 0, delay = 0 } = Astro.props;
 const img = photo ? portraits[photo] : undefined;
 const initials = name.replace(/^Datuk\s+/, '').split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join('');
 ---
-<article class:list={['card', 'person', 'reveal', { honour, wide }]}>
-  <div class="portrait">
+<article class:list={['person', 'reveal', `d${delay % 4}`]}>
+  <div class:list={['tint', `tint-${tint % 4}`]}>
     {img
-      ? <Image src={img} alt={name} widths={[360, 560]} sizes="(min-width: 760px) 380px, 100vw" format="webp" quality={75} loading="lazy" />
+      ? <Image src={img} alt={name} widths={[320, 520]} sizes="(min-width: 760px) 340px, 50vw" format="webp" quality={75} loading="lazy" />
       : <div class="avatar" aria-hidden="true">{initials}</div>}
   </div>
-  <div class="body">
-    <h3>{name}</h3>
-    <p class="role">{role}</p>
-    <p>{bio}</p>
-  </div>
+  <h3>{name}</h3>
+  <p class="role">{role}</p>
+  {bio && <p class="bio">{bio}</p>}
 </article>

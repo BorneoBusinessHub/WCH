@@ -2,22 +2,24 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import { Image } from 'astro:assets';
+import { photos } from '../data/photos';
 import { t, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
 const s = t(locale) as Record<string, string>;
-const svc = ['space', 'dev', 'host', 'ops'];
+const svc = [['space', photos.switchyard, 'alt_switchyard'], ['dev', photos.cooling, 'alt_cooling'], ['host', photos.rack, 'alt_rack'], ['ops', photos.serverHall, 'alt_hall']] as const;
 ---
 <Base locale={locale} path="/services" title={s.services_title} description={s.services_desc}>
   <Hero compact photo="serverHall" credit={s.credit_server} eyebrow={s.services_eyebrow} title={s.services_h1} lead={s.services_lead} />
   <section class="section">
     <div class="wrap">
       <div class="grid grid-2">
-        {svc.map((k, i) => <div class="card reveal"><span class="num">0{i + 1}</span><h3>{s[`svc_${k}_t`]}</h3><p>{s[`svc_${k}_b`]}</p></div>)}
+        {svc.map(([k, img, alt], i) => <article class={`svc reveal d${i % 2}`}><figure><Image src={img} alt={s[alt]} widths={[500, 800]} sizes="(min-width: 760px) 45vw, 100vw" format="webp" quality={70} /></figure><h2 class="svc-h">{s[`svc_${k}_t`]}</h2><p>{s[`svc_${k}_b`]}</p><ul>{[1, 2, 3, 4].map((n) => <li>{s[`feat_${k}_${n}`]}</li>)}</ul></article>)}
       </div>
       <p class="small" style="margin-top:20px">{s.services_note}</p>
     </div>
   </section>
-  <section class="section tone-paper">
+  <section class="section tone">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.services_how_title}</h2></div>
       <ol class="steps">
