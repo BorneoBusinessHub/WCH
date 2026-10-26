@@ -9,11 +9,11 @@ const next = site.status.filter((x) => !x.done);
 <div class="slip">
   <h3>{s.slip_secured}</h3>
   <ul>
-    {done.map((x) => <li class="done"><span class="what">{s[`trk_${x.key}_t`]}</span><span class="dots" aria-hidden="true"></span><span class="val">{s[`trk_${x.key}_b`]}</span></li>)}
+    {done.map((x) => <li class="done"><span class="what">{s[`trk_${x.key}_t`]}</span><span class="val">{s[`trk_${x.key}_b`]}</span><span class="mark" aria-hidden="true"></span></li>)}
   </ul>
   <h3>{s.slip_next}</h3>
   <ul>
-    {next.map((x) => <li><span class="what">{s[`trk_${x.key}_t`]}</span><span class="dots" aria-hidden="true"></span><span class="val">{s[`trk_${x.key}_b`]}</span></li>)}
+    {next.map((x) => <li><span class="what">{s[`trk_${x.key}_t`]}</span><span class="val">{s[`trk_${x.key}_b`]}</span><span class="mark" aria-hidden="true"></span></li>)}
   </ul>
   <div class="result"><span>{s.slip_result}</span><span>{s.slip_result_r}</span></div>
 </div>

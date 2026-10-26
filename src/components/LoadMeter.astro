@@ -1,0 +1,95 @@
+---
+// Live load meter: where an IT load sits in Phase 1, the 10 MW contract and Sarawak's grid.
+import { t, type Locale } from '../i18n/t';
+interface Props { locale: Locale; uid: string; dark?: boolean }
+const { locale, uid, dark = false } = Astro.props;
+const s = t(locale) as Record<string, string>;
+const mw = Array.from({ length: 10 }, (_, i) => i);
+---
+<form class:list={['meter', { 'meter-dark': dark }]} data-meter data-lang={locale === 'en' ? 'en-MY' : 'ms-MY'}
+  data-fit={s.calc_fit} data-over={s.calc_over} data-beyond={s.calc_beyond} onsubmit="return false">
+  <div class="meter-head">
+    <label class="lbl" for={`${uid}-kw`}>{s.calc_label}</label>
+    <div class="meter-num"><input id={`${uid}-kw`} type="number" min="1" max="100000" step="50" value="500" inputmode="numeric" data-num /><span>kW</span></div>
+  </div>
+  <div class="meter-track" style="--p: 5%">
+    <div class="meter-cells" aria-hidden="true">
+      {mw.map((i) => <span class:list={{ p1: i < 2 }}><i>{i}</i></span>)}
+      <b class="meter-end">10 MW</b>
+    </div>
+    <div class="meter-fill" aria-hidden="true"></div>
+    <input class="meter-range" type="range" min="0" max="10000" step="50" value="500" aria-label={s.calc_label} data-range />
+  </div>
+  <div class="meter-legend" aria-hidden="true"><span>{s.phase_1_label} · 2 MW</span><span>{s.phase_2_label} · 8 MW</span></div>
+  <div class="cells meter-out" aria-live="polite">
+    <div class="hot"><span class="lbl">{s.calc_p1}</span><span class="val" data-out="p1">25%</span></div>
+    <div><span class="lbl">{s.calc_contract}</span><span class="val" data-out="contract">5%</span></div>
+    <div><span class="lbl">{s.calc_grid}</span><span class="val" data-out="grid">0.008%</span></div>
+  </div>
+  <p class="meter-verdict" data-out="verdict">{s.calc_fit}</p>
+</form>
+
+<script>
+  for (const f of document.querySelectorAll<HTMLFormElement>('[data-meter]')) {
+    const range = f.querySelector<HTMLInputElement>('[data-range]')!;
+    const num = f.querySelector<HTMLInputElement>('[data-num]')!;
+    const track = f.querySelector<HTMLElement>('.meter-track')!;
+    const out = (k: string) => f.querySelector<HTMLElement>(`[data-out="${k}"]`)!;
+    const lang = f.dataset.lang;
+    const pct = (v: number) => (v >= 10 ? Math.round(v) : v >= 0.1 ? Math.round(v * 10) / 10 : Math.round(v * 1000) / 1000).toLocaleString(lang) + '%';
+    const update = (raw: string) => {
+      const kw = Math.max(1, Math.min(100000, Number(raw) || 0));
+      track.style.setProperty('--p', Math.min(100, kw / 100) + '%');
+      track.classList.toggle('over', kw > 2000);
+      out('p1').textContent = pct(kw / 2000 * 100);
+      out('contract').textContent = pct(kw / 10000 * 100);
+      out('grid').textContent = pct(kw / 5900000 * 100);
+      out('verdict').textContent = kw <= 2000 ? f.dataset.fit! : kw <= 10000 ? f.dataset.over! : f.dataset.beyond!;
+    };
+    range.addEventListener('input', () => { num.value = range.value; update(range.value); });
+    num.addEventListener('input', () => { range.value = num.value; update(num.value); });
+    update(num.value);
+  }
+</script>
+
+<style>
+  .meter { display: grid; gap: 18px; }
+  .meter-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+  .meter-num { display: flex; align-items: baseline; gap: 10px; }
+  .meter-num input { width: 5.2ch; font: 800 clamp(40px, 4.4vw, 64px)/1 var(--sans); font-variation-settings: 'wdth' 72; letter-spacing: -0.02em; color: inherit; background: transparent; border: 0; border-bottom: var(--line) solid currentColor; border-radius: 0; padding: 0 0 4px; text-align: right; -moz-appearance: textfield; }
+  .meter-num input::-webkit-inner-spin-button, .meter-num input::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .meter-num span { font-weight: 650; font-variation-settings: 'wdth' 125; letter-spacing: .06em; }
+
+  .meter-track { position: relative; height: 128px; border: var(--line) solid var(--rule); }
+  .meter-cells { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(10, 1fr); gap: var(--line); background: var(--rule); }
+  .meter-cells span { background: var(--alu); position: relative; }
+  .meter-cells span.p1 { background: var(--signal); }
+  .meter-cells i { position: absolute; left: 8px; top: 6px; font: 650 12px/1 var(--sans); font-style: normal; font-variation-settings: 'wdth' 118; color: var(--ink-soft); }
+  .meter-cells span.p1 i { color: var(--ink); }
+  .meter-end { position: absolute; right: 8px; top: 6px; font: 650 12px/1 var(--sans); font-variation-settings: 'wdth' 118; color: var(--ink-soft); }
+  .meter-fill { position: absolute; left: 0; bottom: 0; height: 46%; width: var(--p); background: var(--ink); transition: width .5s var(--ease); }
+  .meter-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .meter-range:focus-visible + * , .meter-track:has(.meter-range:focus-visible) { outline: 3px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 8px var(--signal); }
+  .meter-legend { display: flex; font-size: var(--s-label); font-weight: 620; letter-spacing: .09em; text-transform: uppercase; font-variation-settings: 'wdth' 125; }
+  .meter-legend span:first-child { width: 20%; min-width: max-content; padding-right: 12px; }
+  .meter-out { grid-template-columns: 1fr; border: var(--line) solid var(--rule); }
+  .meter-out .val { font-size: clamp(40px, 4vw, 60px); margin-top: 18px; }
+  .meter-out > div { display: flex; flex-direction: column; justify-content: space-between; }
+  @media (min-width: 760px) { .meter-out { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .meter-verdict { font-weight: 700; font-size: var(--s-lead); margin: 0; }
+
+  .meter-dark { color: var(--on-ink); --rule: #0b1f33; }
+  .meter-dark .meter-track, .meter-dark .meter-out { border-color: var(--on-ink-soft); }
+  .meter-dark .meter-cells { background: #2a3d50; }
+  .meter-dark .meter-cells span { background: #13293f; }
+  .meter-dark .meter-cells span.p1 { background: var(--signal); }
+  .meter-dark .meter-cells i, .meter-dark .meter-end, .meter-dark .meter-head .lbl { color: var(--on-ink-soft); }
+  @media (max-width: 600px) { .meter-end { display: none; } .meter-track { height: 104px; } }
+  .meter-dark .meter-cells span.p1 i { color: var(--ink); }
+  .meter-dark .meter-fill { background-color: var(--on-ink); }
+  .meter-dark .meter-out { background: #2a3d50; }
+  .meter-dark .meter-out > div { background: #13293f; }
+  .meter-dark .meter-out > .hot { background: var(--signal); color: var(--ink); }
+  .meter-dark .meter-out .lbl { color: var(--on-ink-soft); }
+  .meter-dark .meter-out .hot .lbl { color: var(--ink); }
+</style>
