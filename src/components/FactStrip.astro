@@ -5,7 +5,7 @@ const s = t(locale) as Record<string, string>;
 ---
 <section class="section tone" aria-label="Key facts">
   <div class="wrap">
-    <ul class="grid grid-4" style="list-style:none;padding:0;margin:0">
+    <ul class="grid grid-3" style="list-style:none;padding:0;margin:0">
       {site.facts.map((f, i) => (
         <li class={`reveal d${i}`}><div style="font-size:var(--s-head);font-weight:600;letter-spacing:-0.03em;line-height:1">{f.value} {f.unit}</div><p class="small" style="margin-top:10px">{s[f.key]}</p></li>
       ))}

@@ -23,11 +23,6 @@
       "value": "10",
       "unit": "yr",
       "key": "fact_term"
-    },
-    {
-      "value": "5.9",
-      "unit": "GW",
-      "key": "fact_grid"
     }
   ],
   "team": [
