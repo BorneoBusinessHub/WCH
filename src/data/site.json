@@ -48,6 +48,12 @@
       "roleKey": "role_coo",
       "bioKey": "bio_perry",
       "photo": "perry"
+    },
+    {
+      "name": "Andy Yek, ABK",
+      "roleKey": "role_cfo",
+      "bioKey": "bio_andy",
+      "photo": "andy"
     }
   ],
   "advisers": [
@@ -56,12 +62,6 @@
       "roleKey": "role_chairman",
       "bioKey": "bio_justine",
       "photo": "justine"
-    },
-    {
-      "name": "Andy Yek, ABK",
-      "roleKey": "role_consultant",
-      "bioKey": "bio_andy",
-      "photo": "andy"
     }
   ],
   "credentials": [],
@@ -105,5 +105,44 @@
       "done": false
     }
   ],
-  "milestones": []
+  "milestones": [],
+  "org": {
+    "board": {
+      "labelKey": "org_board"
+    },
+    "chain": [
+      {
+        "name": "Datuk Justine Jinggut",
+        "roleKey": "role_chairman",
+        "bioKey": "bio_justine",
+        "photo": "justine"
+      },
+      {
+        "name": "Jason Wong",
+        "roleKey": "role_ceo",
+        "bioKey": "bio_jason",
+        "photo": "jason"
+      }
+    ],
+    "reports": [
+      {
+        "name": "Perry Wong",
+        "roleKey": "role_coo",
+        "bioKey": "bio_perry",
+        "photo": "perry"
+      },
+      {
+        "name": "Andy Yek, ABK",
+        "roleKey": "role_cfo",
+        "bioKey": "bio_andy",
+        "photo": "andy"
+      },
+      {
+        "name": "Leo Tan",
+        "roleKey": "role_cto",
+        "bioKey": "bio_leo",
+        "photo": "leo"
+      }
+    ]
+  }
 }

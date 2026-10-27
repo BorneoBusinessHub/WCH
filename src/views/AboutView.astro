@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import PersonCard from '../components/PersonCard.astro';
+import OrgChart from '../components/OrgChart.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { t, site, type Locale } from '../i18n/t';
 const { locale } = Astro.props as { locale: Locale };
@@ -36,17 +36,10 @@ const { company } = site;
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="organisation-chart">
     <div class="wrap">
       <div class="section-head reveal"><h2>{s.about_team_title}</h2><p class="lead">{s.about_team_lead}</p></div>
-      <div class="team">{site.team.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i} delay={i} />)}</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head reveal"><h2>{s.about_adv_title}</h2><p class="lead">{s.about_adv_lead}</p></div>
-      <div class="team">{site.advisers.map((p, i) => <PersonCard name={p.name} role={s[p.roleKey]} bio={s[p.bioKey]} photo={p.photo} tint={i + 3} delay={i} />)}</div>
+      <OrgChart s={s} />
     </div>
   </section>
   <CtaBand locale={locale} />

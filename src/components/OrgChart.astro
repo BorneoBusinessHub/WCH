@@ -1,0 +1,113 @@
+---
+// Organisation chart: Board -> Executive Chairman -> CEO -> COO / CFO / CTO.
+// People and roles come from site.json "org"; text from the i18n files.
+import { Image } from 'astro:assets';
+import { portraits } from '../data/photos';
+import { site } from '../i18n/t';
+
+interface Props { s: Record<string, string> }
+const { s } = Astro.props;
+const { board, chain, reports } = site.org as {
+  board: { labelKey: string };
+  chain: { name: string; roleKey: string; bioKey: string; photo: string }[];
+  reports: { name: string; roleKey: string; bioKey: string; photo: string }[];
+};
+
+const Node = (p: { name: string; roleKey: string; bioKey: string; photo: string }) => ({
+  ...p,
+  role: s[p.roleKey],
+  bio: s[p.bioKey],
+  img: portraits[p.photo],
+});
+const chainNodes = chain.map(Node);
+const reportNodes = reports.map(Node);
+---
+<figure class="org" aria-label={s.org_title}>
+  <ol class="org-chain">
+    <li class="org-board"><span class="lbl">{s[board.labelKey]}</span></li>
+    {chainNodes.map((n) => (
+      <li>
+        <div class="org-node">
+          {n.img && <Image src={n.img} alt="" widths={[96, 192]} sizes="64px" format="webp" quality={75} loading="lazy" />}
+          <div>
+            <h3>{n.name}</h3>
+            <p class="role">{n.role}</p>
+            <p class="bio">{n.bio}</p>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <ul class="org-reports">
+    {reportNodes.map((n) => (
+      <li>
+        <div class="org-node">
+          {n.img && <Image src={n.img} alt="" widths={[96, 192]} sizes="64px" format="webp" quality={75} loading="lazy" />}
+          <div>
+            <h3>{n.name}</h3>
+            <p class="role">{n.role}</p>
+            <p class="bio">{n.bio}</p>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</figure>
+
+<style>
+  .org { margin: 0; --stem: 28px; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+
+  .org-chain { display: flex; flex-direction: column; align-items: center; }
+  .org-chain > li, .org-reports > li { position: relative; width: 100%; max-width: 420px; }
+  .org-chain > li + li { margin-top: var(--stem); }
+  /* vertical connector between stacked boxes */
+  .org-chain > li + li::before {
+    content: ''; position: absolute; left: 50%; top: calc(var(--stem) * -1);
+    height: var(--stem); border-left: 2px solid var(--navy);
+  }
+
+  .org-board .lbl {
+    display: block; text-align: center; padding: 14px 20px;
+    background: var(--navy); color: #fff; letter-spacing: .08em; text-transform: uppercase;
+    font-size: var(--s-small); font-weight: 600;
+  }
+
+  .org-node {
+    display: flex; gap: 16px; align-items: center;
+    padding: 16px 18px; background: #fff; border: 2px solid var(--navy);
+  }
+  .org-node img {
+    flex: none; width: 64px; height: 64px; object-fit: cover; object-position: center 22%;
+    filter: grayscale(1) contrast(1.1); border-radius: 50%;
+  }
+  .org-node h3 { margin: 0; font-size: var(--s-body); font-weight: 600; letter-spacing: 0; }
+  .org-node .role { margin: 2px 0 0; font-weight: 600; font-size: var(--s-small); }
+  .org-node .bio { margin: 4px 0 0; font-size: var(--s-small); color: var(--ink-soft); }
+
+  /* the three reports hang off the CEO */
+  .org-reports { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: var(--stem); position: relative; }
+  .org-reports::before {
+    content: ''; position: absolute; left: 50%; top: calc(var(--stem) * -1);
+    height: var(--stem); border-left: 2px solid var(--navy);
+  }
+
+  @media (min-width: 900px) {
+    .org-chain > li, .org-reports > li { max-width: 440px; }
+    .org-reports { flex-direction: row; align-items: stretch; justify-content: center; gap: 20px; padding-top: var(--stem); margin-top: var(--stem); }
+    .org-reports::before { top: calc(var(--stem) * -1); height: calc(var(--stem) * 2); }
+    .org-reports > li { max-width: none; flex: 1 1 0; min-width: 0; }
+    /* horizontal bar across the tops of the three boxes, with a drop to each */
+    .org-reports > li::before {
+      content: ''; position: absolute; top: calc(var(--stem) * -1); left: -10px; right: -10px;
+      border-top: 2px solid var(--navy);
+    }
+    .org-reports > li:first-child::before { left: 50%; }
+    .org-reports > li:last-child::before { right: 50%; }
+    .org-reports > li::after {
+      content: ''; position: absolute; top: calc(var(--stem) * -1); left: 50%;
+      height: var(--stem); border-left: 2px solid var(--navy);
+    }
+    .org-reports > li .org-node { height: 100%; flex-direction: column; text-align: center; }
+  }
+</style>
